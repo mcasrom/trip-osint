@@ -1,23 +1,91 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Trip-OSINT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip-OSINT - Seguridad e Inteligencia para Viajes</title>
+    <meta name="description" content="Dashboard OSINT con requisitos de viaje, alertas de seguridad, vacunas y documentación actualizada diariamente">
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>✈️ Trip-OSINT</h1>
-    <p><a href="https://github.com/mcasrom/trip-osint">github.com/mcasrom/trip-osint</a></p>
-    <div id="destinos"></div>
-    <div>
-        <h2>📄 Documentación</h2>
-        <ul>
-            <li><a href="docs-usuario/checklist.pdf">Checklist viaje</a></li>
-            <li><a href="docs-usuario/documentos.pdf">Documentos obligatorios</a></li>
-            <li><a href="docs-usuario/emergencia.pdf">Tarjeta emergencia</a></li>
-        </ul>
-        <p>🔗 <a href="https://drive.google.com/drive/folders/xxxx">Google Drive</a></p>
-        <p>Mantenido por <a href="https://github.com/mcasrom">@mcasrom</a></p>
+    <div class="container">
+        <!-- HEADER PROFESIONAL -->
+        <div class="header">
+            <h1>✈️ Trip-OSINT</h1>
+            <p class="tagline">Inteligencia de viajes · OSINT · Actualización diaria</p>
+            <div class="badges">
+                <span class="badge">📡 Datos oficiales MAEC</span>
+                <span class="badge">📰 Prensa local</span>
+                <span class="badge">💉 Vacunas OMS</span>
+                <span class="badge">💰 Tipo cambio real</span>
+            </div>
+        </div>
+
+        <!-- KPIS GLOBALES -->
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-value" id="total-destinos">0</div>
+                <div class="kpi-label">Destinos monitorizados</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value" id="ultima-actualizacion">--</div>
+                <div class="kpi-label">Última actualización</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value" id="nivel-riesgo-global">🟡</div>
+                <div class="kpi-label">Riesgo global medio</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value" id="alertas-activas">0</div>
+                <div class="kpi-label">Alertas activas</div>
+            </div>
+        </div>
+
+        <!-- DESTINOS (se llena con JS) -->
+        <div id="destinos" class="destinos-grid"></div>
+
+        <!-- SECCIÓN DOCUMENTACIÓN ÚTIL -->
+        <div class="documentacion">
+            <h2>📋 Documentación para llevar (imprimir SÍ o SÍ)</h2>
+            <div class="docs-grid">
+                <div class="doc-card">
+                    <div class="doc-icon">📘</div>
+                    <h3>Checklist viaje</h3>
+                    <p>Documentación, reservas, seguros, contactos</p>
+                    <a href="docs-usuario/checklist_viaje_familiar.pdf" class="btn">Descargar PDF</a>
+                </div>
+                <div class="doc-card">
+                    <div class="doc-icon">🛂</div>
+                    <h3>Documentos obligatorios</h3>
+                    <p>Pasaporte, visados, vacunas, formularios</p>
+                    <a href="docs-usuario/documentos_obligatorios.pdf" class="btn">Descargar PDF</a>
+                </div>
+                <div class="doc-card">
+                    <div class="doc-icon">🆘</div>
+                    <h3>Tarjeta emergencia</h3>
+                    <p>Números de teléfono, embajadas, seguros</p>
+                    <a href="docs-usuario/tarjeta_emergencia.pdf" class="btn">Descargar PDF</a>
+                </div>
+                <div class="doc-card">
+                    <div class="doc-icon">💰</div>
+                    <h3>Dinero y tarjetas</h3>
+                    <p>Efectivo recomendado, comisiones, cajeros</p>
+                    <a href="docs-usuario/dinero_tarjetas.pdf" class="btn">Descargar PDF</a>
+                </div>
+            </div>
+            <div class="drive-link">
+                📂 <strong>Carpeta Google Drive:</strong> 
+                <a href="https://drive.google.com/drive/folders/xxxx" target="_blank">Plantillas editables (haz tu copia)</a>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p>Mantenido por <a href="https://github.com/mcasrom">@mcasrom</a> · Datos OSINT · 
+            <a href="https://github.com/mcasrom/trip-osint">Repositorio GitHub</a></p>
+            <p class="disclaimer">⚠️ Verificar siempre fuentes oficiales antes de viajar</p>
+        </div>
     </div>
     <script src="js/dashboard.js"></script>
 </body>
