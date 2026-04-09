@@ -1,0 +1,10 @@
+{
+  "ultima_actualizacion": "2026-04-09T17:16:27.382509",
+  "destinos": [
+    "paris",
+    "roma",
+    "berlin",
+    "lisboa"
+  ],
+  "total_destinos": 4
+}
