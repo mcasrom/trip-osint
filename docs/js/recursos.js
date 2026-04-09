@@ -203,3 +203,141 @@ function mostrarRecursos(pais) {
     
     return html;
 }
+
+// AÑADIR BRASIL Y MÁS PAÍSES
+RECURSOS_POR_PAIS["brasil"] = {
+    prensa: [
+        { nombre: "Folha de S.Paulo", url: "https://www.folha.uol.com.br/" },
+        { nombre: "O Globo", url: "https://oglobo.globo.com/" }
+    ],
+    maec: "https://www.exteriores.gob.es/Consulados/Brasilia/Paginas/Recomendaciones-de-Viaje.aspx",
+    embajada: "https://www.exteriores.gob.es/Consulados/Brasilia",
+    telefono_embajada: "+55 61 3248 8200"
+};
+
+VACUNAS_OMS["brasil"] = ["Fiebre amarilla", "Hepatitis A", "Fiebre tifoidea", "Dengue", "Malaria (zonas amazónicas)"];
+
+PAISES_INFO["brasil"] = { 
+    riesgo: 2, 
+    visado: "Exento 90 días", 
+    moneda: "BRL", 
+    efectivo: "500 BRL", 
+    alertas: "Precaución en grandes ciudades, vacuna fiebre amarilla obligatoria" 
+};
+
+// ARGENTINA
+RECURSOS_POR_PAIS["argentina"] = {
+    prensa: [
+        { nombre: "Clarín", url: "https://www.clarin.com/" },
+        { nombre: "La Nación", url: "https://www.lanacion.com.ar/" }
+    ],
+    maec: "https://www.exteriores.gob.es/Consulados/BuenosAires/Paginas/Recomendaciones-de-Viaje.aspx",
+    embajada: "https://www.exteriores.gob.es/Consulados/BuenosAires",
+    telefono_embajada: "+54 11 4331 1255"
+};
+VACUNAS_OMS["argentina"] = ["Fiebre amarilla (zonas norte)", "Hepatitis A"];
+PAISES_INFO["argentina"] = { riesgo: 2, visado: "Exento 90 días", moneda: "ARS", efectivo: "100,000 ARS", alertas: "Crisis económica" };
+
+// COLOMBIA
+RECURSOS_POR_PAIS["colombia"] = {
+    prensa: [
+        { nombre: "El Tiempo", url: "https://www.eltiempo.com/" },
+        { nombre: "El Espectador", url: "https://www.elespectador.com/" }
+    ],
+    maec: "https://www.exteriores.gob.es/Consulados/Bogota/Paginas/Recomendaciones-de-Viaje.aspx",
+    embajada: "https://www.exteriores.gob.es/Consulados/Bogota",
+    telefono_embajada: "+57 1 637 8020"
+};
+VACUNAS_OMS["colombia"] = ["Fiebre amarilla", "Hepatitis A", "Fiebre tifoidea", "Dengue"];
+PAISES_INFO["colombia"] = { riesgo: 2, visado: "Exento 90 días", moneda: "COP", efectivo: "400,000 COP", alertas: "Precaución zonas rurales" };
+
+// PERÚ
+RECURSOS_POR_PAIS["peru"] = {
+    prensa: [
+        { nombre: "El Comercio", url: "https://elcomercio.pe/" },
+        { nombre: "La República", url: "https://larepublica.pe/" }
+    ],
+    maec: "https://www.exteriores.gob.es/Consulados/Lima/Paginas/Recomendaciones-de-Viaje.aspx",
+    embajada: "https://www.exteriores.gob.es/Consulados/Lima",
+    telefono_embajada: "+51 1 212 5100"
+};
+VACUNAS_OMS["peru"] = ["Fiebre amarilla", "Hepatitis A", "Fiebre tifoidea", "Malaria (zonas amazónicas)"];
+PAISES_INFO["peru"] = { riesgo: 2, visado: "Exento 90 días", moneda: "PEN", efectivo: "500 PEN", alertas: "" };
+
+// CHILE
+RECURSOS_POR_PAIS["chile"] = {
+    prensa: [
+        { nombre: "El Mercurio", url: "https://www.emol.com/" },
+        { nombre: "La Tercera", url: "https://www.latercera.com/" }
+    ],
+    maec: "https://www.exteriores.gob.es/Consulados/SantiagodeChile/Paginas/Recomendaciones-de-Viaje.aspx",
+    embajada: "https://www.exteriores.gob.es/Consulados/SantiagodeChile",
+    telefono_embajada: "+56 2 2937 3500"
+};
+VACUNAS_OMS["chile"] = ["Hepatitis A"];
+PAISES_INFO["chile"] = { riesgo: 1, visado: "Exento 90 días", moneda: "CLP", efectivo: "150,000 CLP", alertas: "" };
+
+// URUGUAY
+RECURSOS_POR_PAIS["uruguay"] = {
+    prensa: [
+        { nombre: "El País", url: "https://www.elpais.com.uy/" },
+        { nombre: "La Diaria", url: "https://ladiaria.com.uy/" }
+    ],
+    maec: "https://www.exteriores.gob.es/Consulados/Montevideo/Paginas/Recomendaciones-de-Viaje.aspx",
+    embajada: "https://www.exteriores.gob.es/Consulados/Montevideo",
+    telefono_embajada: "+598 2 410 4401"
+};
+VACUNAS_OMS["uruguay"] = ["Hepatitis A"];
+PAISES_INFO["uruguay"] = { riesgo: 1, visado: "Exento 90 días", moneda: "UYU", efectivo: "5,000 UYU", alertas: "" };
+
+// PARAGUAY
+RECURSOS_POR_PAIS["paraguay"] = {
+    prensa: [
+        { nombre: "ABC Color", url: "https://www.abc.com.py/" },
+        { nombre: "La Nación", url: "https://www.lanacion.com.py/" }
+    ],
+    maec: "https://www.exteriores.gob.es/Consulados/Asuncion/Paginas/Recomendaciones-de-Viaje.aspx",
+    embajada: "https://www.exteriores.gob.es/Consulados/Asuncion",
+    telefono_embajada: "+595 21 220 882"
+};
+VACUNAS_OMS["paraguay"] = ["Fiebre amarilla", "Hepatitis A", "Dengue"];
+PAISES_INFO["paraguay"] = { riesgo: 2, visado: "Exento 90 días", moneda: "PYG", efectivo: "1,200,000 PYG", alertas: "" };
+
+// BOLIVIA
+RECURSOS_POR_PAIS["bolivia"] = {
+    prensa: [
+        { nombre: "La Razón", url: "https://www.la-razon.com/" },
+        { nombre: "El Deber", url: "https://eldeber.com.bo/" }
+    ],
+    maec: "https://www.exteriores.gob.es/Consulados/LaPaz/Paginas/Recomendaciones-de-Viaje.aspx",
+    embajada: "https://www.exteriores.gob.es/Consulados/LaPaz",
+    telefono_embajada: "+591 2 241 1133"
+};
+VACUNAS_OMS["bolivia"] = ["Fiebre amarilla", "Hepatitis A", "Fiebre tifoidea", "Malaria"];
+PAISES_INFO["bolivia"] = { riesgo: 2, visado: "Exento 90 días", moneda: "BOB", efectivo: "1,500 BOB", alertas: "Altura, precaución" };
+
+// ECUADOR
+RECURSOS_POR_PAIS["ecuador"] = {
+    prensa: [
+        { nombre: "El Universo", url: "https://www.eluniverso.com/" },
+        { nombre: "El Comercio", url: "https://www.elcomercio.com/" }
+    ],
+    maec: "https://www.exteriores.gob.es/Consulados/Quito/Paginas/Recomendaciones-de-Viaje.aspx",
+    embajada: "https://www.exteriores.gob.es/Consulados/Quito",
+    telefono_embajada: "+593 2 222 5775"
+};
+VACUNAS_OMS["ecuador"] = ["Fiebre amarilla (zonas amazónicas)", "Hepatitis A", "Malaria"];
+PAISES_INFO["ecuador"] = { riesgo: 2, visado: "Exento 90 días", moneda: "USD", efectivo: "200 USD", alertas: "" };
+
+// VENEZUELA
+RECURSOS_POR_PAIS["venezuela"] = {
+    prensa: [
+        { nombre: "El Nacional", url: "https://www.elnacional.com/" },
+        { nombre: "Tal Cual", url: "https://talcualdigital.com/" }
+    ],
+    maec: "https://www.exteriores.gob.es/Consulados/Caracas/Paginas/Recomendaciones-de-Viaje.aspx",
+    embajada: "https://www.exteriores.gob.es/Consulados/Caracas",
+    telefono_embajada: "+58 212 975 3485"
+};
+VACUNAS_OMS["venezuela"] = ["Fiebre amarilla", "Hepatitis A", "Malaria", "Dengue"];
+PAISES_INFO["venezuela"] = { riesgo: 3, visado: "Exento 90 días", moneda: "VES", efectivo: "No recomendado", alertas: "CRISIS POLÍTICA - PRECAUCIÓN EXTREMA" };
