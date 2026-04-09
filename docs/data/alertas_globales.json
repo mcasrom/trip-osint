@@ -1,5 +1,5 @@
 {
-  "ultima_actualizacion": "2026-04-09T18:04:11.250323",
+  "ultima_actualizacion": "2026-04-09T18:19:58.586432",
   "total_alertas": 17,
   "alertas_criticas": 9,
   "alertas_altas": 8,
@@ -126,5 +126,5 @@
     "IATA",
     "EASA"
   ],
-  "fecha_hora": "2026-04-09 18:04:11"
+  "fecha_hora": "2026-04-09 18:19:58"
 }
