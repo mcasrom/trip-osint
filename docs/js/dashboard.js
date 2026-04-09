@@ -247,3 +247,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const input = document.getElementById('buscador-destino');
     if (input) input.onkeypress = (e) => { if (e.key === 'Enter') buscarPais(); };
 });
+
+// AÑADIR AUSTRALIA (sin tocar el resto)
+PAISES_INFO["australia"] = { 
+    riesgo: 1, 
+    visado: "eTA obligatorio", 
+    moneda: "AUD", 
+    efectivo: "200 AUD", 
+    alertas: "" 
+};
+
+MAEC_DATA["australia"] = "🟢 Seguridad alta. Seguir normas de playa y fauna silvestre.";
+
+PRENSA_DATA["australia"] = "📰 Gold Coast Bulletin: Temporada de turistas. The Sydney Morning Herald: Normalidad.";
+
+VACUNAS_DATA["australia"] = "💉 Ninguna obligatoria. Recomendada: Hepatitis A, Tétanos.";
+
+CAMBIO_DATA["AUD"] = { valor: 0.61, cambio: "1 AUD = 0.61 EUR" };
