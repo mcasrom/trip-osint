@@ -84,7 +84,22 @@
         <div id="destinos" class="destinos-grid"></div>
 
         <!-- KPIS GLOBALES -->
-        <div class="kpi-grid">
+        <div class="alertas-globales">
+        <h3>🚨 ALERTAS OSINT GLOBALES</h3>
+        <div class="kpi-grid-alertas">
+            <div class="kpi-card">
+                <div class="kpi-value" id="alertas-criticas">0</div>
+                <div class="kpi-label">Países RIESGO CRÍTICO</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value" id="alertas-altas">0</div>
+                <div class="kpi-label">Países RIESGO ALTO</div>
+            </div>
+        </div>
+        <div id="paises-alerta" class="paises-alerta"></div>
+    </div>
+    
+    <div class="kpi-grid">
             <div class="kpi-card">
                 <div class="kpi-value" id="total-destinos">0</div>
                 <div class="kpi-label">Destinos monitorizados</div>

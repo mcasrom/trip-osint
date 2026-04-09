@@ -77,3 +77,30 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# Añadir al final del archivo existente, antes de if __name__
+
+def generar_alertas():
+    """Genera alertas OSINT"""
+    from alertas_osint import generar_alertas as gen_alertas
+    return gen_alertas()
+
+# Modificar main para incluir alertas
+def main_completo():
+    print(f"[{datetime.now()}] Iniciando scraping completo...")
+    
+    # Scraping normal de destinos
+    destinos = leer_destinos()
+    for destino in destinos:
+        datos = generar_kpi(destino)
+        with open(DATA_DIR / f"{destino}_latest.json", 'w') as f:
+            json.dump(datos, f, indent=2)
+        print(f"  ✓ {destino}")
+    
+    # Generar alertas globales
+    generar_alertas()
+    
+    print("✅ Scraping completado")
+
+if __name__ == "__main__":
+    main_completo()
