@@ -1,5 +1,5 @@
 // Trip-OSINT Dashboard - Versión Profesional
-const API_URL = '../data/';
+const API_URL = 'data/';
 
 // Información real de destinos (cuando no hay datos del scraper)
 const DEFAULT_DATA = {

@@ -1,0 +1,25 @@
+{
+  "destino": "saigon",
+  "timestamp": "2026-04-09T17:13:35.529686",
+  "seguridad": 2,
+  "requisitos": {
+    "pasaporte": "6 meses validez",
+    "visado": "consultar eTA/eVOA",
+    "vacunas": "ninguna obligatoria"
+  },
+  "dinero": {
+    "efectivo_recomendado": "200 USD",
+    "tarjetas_aceptadas": "Visa/Mastercard"
+  },
+  "telefonos_interes": {
+    "policia_turistica": "000",
+    "embajada": "+61 xxx xxx"
+  },
+  "transporte": {
+    "aerolineas": [
+      "Qantas",
+      "Virgin",
+      "Jetstar"
+    ]
+  }
+}
