@@ -1,189 +1,138 @@
-// Trip-OSINT - Con TABS funcionales
-console.log("Dashboard cargado");
+// Trip-OSINT - Buscador UNIVERSAL (cualquier país)
+console.log("Dashboard universal cargado");
 
-// Datos de destinos
-const DESTINOS_DATA = {
-    "gold_coast": { nombre: "Gold Coast", pais: "Australia", riesgo: 2, moneda: "AUD", visado: "eTA online", efectivo: "200 AUD", vacunas: "Ninguna", alertas: ["Temporada ciclones nov-abr"] },
-    "bali": { nombre: "Bali", pais: "Indonesia", riesgo: 2, moneda: "IDR", visado: "eVOA 50 USD", efectivo: "2,000,000 IDR", vacunas: "Fiebre amarilla", alertas: ["Volcán Agung nivel 2"] },
-    "saigon": { nombre: "Saigon", pais: "Vietnam", riesgo: 2, moneda: "VND", visado: "eVisa 25 USD", efectivo: "5,000,000 VND", vacunas: "Tifoidea", alertas: ["Carteristas"] },
-    "tokio": { nombre: "Tokio", pais: "Japón", riesgo: 1, moneda: "JPY", visado: "Exento 90 días", efectivo: "20,000 JPY", vacunas: "Ninguna", alertas: [] },
-    "paris": { nombre: "París", pais: "Francia", riesgo: 2, moneda: "EUR", visado: "Schengen", efectivo: "200 EUR", vacunas: "Ninguna", alertas: ["Huelgas transporte"] },
-    "roma": { nombre: "Roma", pais: "Italia", riesgo: 2, moneda: "EUR", visado: "Schengen", efectivo: "200 EUR", vacunas: "Ninguna", alertas: [] },
-    "londres": { nombre: "Londres", pais: "Reino Unido", riesgo: 2, moneda: "GBP", visado: "Exento 6 meses", efectivo: "200 GBP", vacunas: "Ninguna", alertas: [] },
-    "nueva_york": { nombre: "Nueva York", pais: "EEUU", riesgo: 1, moneda: "USD", visado: "ESTA", efectivo: "200 USD", vacunas: "Ninguna", alertas: [] }
-};
-
-// DATOS PARA TABS
-const MAEC_DATA = {
-    "gold_coast": "🟡 Precaución normal. Seguridad general buena.",
-    "bali": "🟡 Precaución por terrorismo. Zonas turísticas seguras.",
-    "saigon": "🟡 Precaución por carteristas. Evitar manifestaciones.",
-    "tokio": "🟢 Seguridad alta. Viaje seguro.",
-    "paris": "🟡 Precaución en zonas turísticas y transporte público.",
-    "nueva_york": "🟢 Seguridad alta. Precaución normal."
-};
-
-const PRENSA_DATA = {
-    "gold_coast": "📰 Gold Coast Bulletin: Olas de calor esta semana. Transporte público normal.",
-    "bali": "📰 Bali Sun: Temporada alta. Precios suben 20%. Volcán estable.",
-    "saigon": "📰 Saigon Times: Lluvias intensas previstas. Precaución al conducir.",
-    "tokio": "📰 Japan Times: Temporada de cerezos. Multitudes en zonas turísticas."
-};
-
-const VACUNAS_DATA = {
-    "gold_coast": "💉 Ninguna obligatoria. Recomendadas: Tétanos, Hepatitis A y B.",
-    "bali": "💉 OBLIGATORIA: Fiebre amarilla (si viene de zona endémica). Recomendadas: Tifoidea, Hepatitis A.",
-    "saigon": "💉 Recomendadas: Tifoidea, Hepatitis A, Fiebre tifoidea. Malaria en zonas rurales.",
-    "tokio": "💉 Ninguna obligatoria. Recomendadas: Encefalitis japonesa (si zonas rurales)."
-};
-
-const CAMBIO_DATA = {
-    "AUD": { valor: 0.61, cambio: "1 AUD = 0.61 EUR" },
-    "IDR": { valor: 0.000058, cambio: "10,000 IDR = 0.58 EUR" },
-    "VND": { valor: 0.000038, cambio: "10,000 VND = 0.38 EUR" },
-    "JPY": { valor: 0.0062, cambio: "100 JPY = 0.62 EUR" },
-    "EUR": { valor: 1, cambio: "1 EUR = 1 EUR" },
-    "USD": { valor: 0.92, cambio: "1 USD = 0.92 EUR" },
-    "GBP": { valor: 1.17, cambio: "1 GBP = 1.17 EUR" }
-};
-
-// FUNCIONES TABS
-window.cambiarTab = function(tabId) {
-    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-    document.querySelector(`.tab-btn[data-tab="${tabId}"]`).classList.add('active');
-    document.getElementById(`tab-${tabId}`).classList.add('active');
-};
-
-function actualizarTabsConDestino(destino) {
-    const info = DESTINOS_DATA[destino];
-    if (!info) return;
+// Base de datos de países con información actualizada (expandible)
+const PAISES_INFO = {
+    // Asia
+    "china": { riesgo: 2, visado: "eVisa / exento 15 días según nacionalidad", moneda: "CNY", efectivo: "500 CNY", alertas: "Restricciones sanitarias variables" },
+    "japon": { riesgo: 1, visado: "Exento 90 días", moneda: "JPY", efectivo: "20,000 JPY", alertas: "" },
+    "corea del norte": { riesgo: 4, visado: "Prohibido para turistas occidentales", moneda: "KPW", efectivo: "No aplica", alertas: "Régimen dictatorial, peligro de detención" },
+    "corea del sur": { riesgo: 1, visado: "Exento 90 días (K-ETA)", moneda: "KRW", efectivo: "200,000 KRW", alertas: "" },
+    "tailandia": { riesgo: 2, visado: "Exento 30 días", moneda: "THB", efectivo: "6,000 THB", alertas: "Precaución zonas turísticas" },
+    "vietnam": { riesgo: 2, visado: "eVisa 25 USD", moneda: "VND", efectivo: "5,000,000 VND", alertas: "Carteristas" },
+    "india": { riesgo: 2, visado: "eVisa obligatorio", moneda: "INR", efectivo: "15,000 INR", alertas: "Precaución en grandes ciudades" },
     
-    // MAEC
-    const maecDiv = document.getElementById('maec-info');
-    if (maecDiv) maecDiv.innerHTML = `<p>${MAEC_DATA[destino] || '🟡 Consultar web oficial del ministerio.'}</p><p><strong>Teléfono consulado:</strong> +${info.pais === 'Australia' ? '61 2 6270 6666' : '34 91 123 4567'}</p>`;
+    // Oriente Medio (con alertas reales)
+    "iran": { riesgo: 4, visado: "No recomendado", moneda: "IRR", efectivo: "No aplica", alertas: "GUERRA ACTIVA - NO VIAJAR" },
+    "irak": { riesgo: 4, visado: "No recomendado", moneda: "IQD", efectivo: "No aplica", alertas: "ESPACIO AÉREO CERRADO" },
+    "israel": { riesgo: 4, visado: "No recomendado", moneda: "ILS", efectivo: "No aplica", alertas: "CONFLICTO ACTIVO" },
+    "emiratos arabes": { riesgo: 3, visado: "Exento", moneda: "AED", efectivo: "500 AED", alertas: "AEROPUERTO DXB CERRADO" },
+    "qatar": { riesgo: 3, visado: "Exento", moneda: "QAR", efectivo: "500 QAR", alertas: "AEROPUERTO DOH CERRADO" },
+    "arabia saudita": { riesgo: 3, visado: "eVisa", moneda: "SAR", efectivo: "500 SAR", alertas: "Alertas fronterizas" },
     
-    // PRENSA
-    const prensaDiv = document.getElementById('prensa-info');
-    if (prensaDiv) prensaDiv.innerHTML = `<p>${PRENSA_DATA[destino] || '📰 Sin alertas destacadas en prensa local.'}</p><p><strong>Actualización:</strong> ${new Date().toLocaleDateString()}</p>`;
+    // Europa
+    "rusia": { riesgo: 3, visado: "No recomendado", moneda: "RUB", efectivo: "15,000 RUB", alertas: "Conflicto en curso" },
+    "ucrania": { riesgo: 4, visado: "No viajar", moneda: "UAH", efectivo: "No aplica", alertas: "GUERRA ACTIVA" },
+    "españa": { riesgo: 1, visado: "Exento (UE)", moneda: "EUR", efectivo: "200 EUR", alertas: "" },
+    "francia": { riesgo: 2, visado: "Schengen", moneda: "EUR", efectivo: "200 EUR", alertas: "Huelgas transporte" },
+    "reino unido": { riesgo: 2, visado: "Exento 6 meses", moneda: "GBP", efectivo: "200 GBP", alertas: "" },
     
-    // VACUNAS
-    const vacunasDiv = document.getElementById('vacunas-info');
-    if (vacunasDiv) vacunasDiv.innerHTML = `<p>${VACUNAS_DATA[destino] || '💉 Consultar centro de vacunación internacional.'}</p><p><strong>Recomendación:</strong> Vacunarse 4-6 semanas antes del viaje.</p>`;
+    // América
+    "estados unidos": { riesgo: 1, visado: "ESTA obligatorio", moneda: "USD", efectivo: "200 USD", alertas: "" },
+    "mexico": { riesgo: 2, visado: "Exento", moneda: "MXN", efectivo: "4,000 MXN", alertas: "Precaución en zonas turísticas" },
+    "brasil": { riesgo: 2, visado: "Exento", moneda: "BRL", efectivo: "500 BRL", alertas: "Precaución ciudades grandes" },
+    "colombia": { riesgo: 2, visado: "Exento", moneda: "COP", efectivo: "400,000 COP", alertas: "Precaución en zonas rurales" },
     
-    // CAMBIO
-    const moneda = info.moneda;
-    const cambio = CAMBIO_DATA[moneda];
-    if (cambio && document.getElementById('cambio-info')) {
-        document.getElementById('cambio-info').innerHTML = `
-            <p><strong>${cambio.cambio}</strong></p>
-            <p><strong>Efectivo recomendado:</strong> ${info.efectivo}</p>
-            <p><strong>Consejo:</strong> Cambiar moneda en el destino, evitar aeropuertos.</p>
-            <p><small>Última actualización: ${new Date().toLocaleString()}</small></p>
-        `;
-    }
+    // África
+    "egipto": { riesgo: 2, visado: "eVisa", moneda: "EGP", efectivo: "3,000 EGP", alertas: "Precaución península del Sinaí" },
+    "marruecos": { riesgo: 2, visado: "Exento", moneda: "MAD", efectivo: "2,000 MAD", alertas: "" },
+    "sudafrica": { riesgo: 2, visado: "Exento", moneda: "ZAR", efectivo: "3,000 ZAR", alertas: "Precaución en Johannesburgo" },
+};
+
+function riesgoTexto(riesgo) {
+    if (riesgo === 1) return '<span style="color:#27ae60;">🟢 BAJO - Viaje seguro</span>';
+    if (riesgo === 2) return '<span style="color:#f39c12;">🟡 MEDIO - Precaución normal</span>';
+    if (riesgo === 3) return '<span style="color:#e74c3c;">🟠 ALTO - Aplazar viaje</span>';
+    return '<span style="color:#c0392b;">🔴 CRÍTICO - NO VIAJAR</span>';
 }
 
-function actualizarTabsGlobal() {
-    const maecDiv = document.getElementById('maec-info');
-    if (maecDiv) maecDiv.innerHTML = `<p>🟡 Riesgo medio global. Consultar destino específico para recomendaciones detalladas.</p><p><strong>Fuente:</strong> Ministerio Asuntos Exteriores</p>`;
-    
-    const prensaDiv = document.getElementById('prensa-info');
-    if (prensaDiv) prensaDiv.innerHTML = `<p>📰 Selecciona un destino en el buscador para ver noticias específicas.</p>`;
-    
-    const vacunasDiv = document.getElementById('vacunas-info');
-    if (vacunasDiv) vacunasDiv.innerHTML = `<p>💉 Requisitos sanitarios varían por destino. Usa el buscador para información específica.</p>`;
-    
-    const cambioDiv = document.getElementById('cambio-info');
-    if (cambioDiv) cambioDiv.innerHTML = `<p>💰 1 EUR = 0.92 USD | 1 EUR = 1.61 AUD | 1 EUR = 17,241 IDR | 1 EUR = 26,315 VND</p><p>Selecciona un destino para ver cambio específico.</p>`;
-}
-
-function mostrarRiesgo(nivel) {
-    if (nivel == 1) return '<span style="color:#27ae60;">🟢 BAJO</span>';
-    if (nivel == 2) return '<span style="color:#f39c12;">🟡 MEDIO</span>';
-    return '<span style="color:#e74c3c;">🔴 ALTO</span>';
-}
-
-window.buscarDestino = function() {
+window.buscarPais = function() {
     const input = document.getElementById('buscador-destino');
     const query = input.value.trim().toLowerCase();
-    const destinoDiv = document.getElementById('destino-seleccionado');
+    const resultadoDiv = document.getElementById('destino-seleccionado');
     
+    if (!query) {
+        resultadoDiv.innerHTML = '<div class="error-msg">✏️ Escribe un país (ej: china, corea del norte, emiratos arabes)</div>';
+        resultadoDiv.style.display = 'block';
+        return;
+    }
+    
+    // Buscar en la base de datos
     let encontrado = null;
     let clave = null;
     
-    for (const [k, v] of Object.entries(DESTINOS_DATA)) {
-        if (k.includes(query) || v.nombre.toLowerCase().includes(query) || v.pais.toLowerCase().includes(query)) {
+    for (const [k, v] of Object.entries(PAISES_INFO)) {
+        if (k.includes(query) || query.includes(k)) {
             encontrado = v;
             clave = k;
             break;
         }
     }
     
-    if (encontrado) {
-        actualizarTabsConDestino(clave);
-        destinoDiv.innerHTML = `
-            <div style="background:linear-gradient(135deg,#667eea,#764ba2);border-radius:24px;padding:25px;color:white;">
-                <h2>🎯 ${encontrado.nombre} (${encontrado.pais})</h2>
-                <div style="background:rgba(255,255,255,0.15);border-radius:16px;padding:20px;">
-                    <p><strong>🛡️ Seguridad:</strong> ${mostrarRiesgo(encontrado.riesgo)}</p>
-                    <p><strong>🎫 Visado:</strong> ${encontrado.visado}</p>
-                    <p><strong>💉 Vacunas:</strong> ${encontrado.vacunas}</p>
-                    <p><strong>💵 Efectivo:</strong> ${encontrado.efectivo}</p>
-                    <p><strong>📞 Emergencias:</strong> 112</p>
-                    ${encontrado.alertas.length ? `<p><strong>⚠️ Alertas:</strong> ${encontrado.alertas.join(', ')}</p>` : ''}
-                </div>
-                <button onclick="cerrarDestino()" style="margin-top:15px;background:#666;border:none;padding:10px 20px;border-radius:8px;color:white;cursor:pointer;">✖️ Cerrar</button>
-            </div>
-        `;
-        destinoDiv.style.display = 'block';
-        destinoDiv.scrollIntoView({ behavior: 'smooth' });
-    } else {
-        destinoDiv.innerHTML = `<div style="background:#fef7e0;padding:15px;border-radius:12px;">❌ No encontrado. Destinos: ${Object.keys(DESTINOS_DATA).join(', ')}</div>`;
-        destinoDiv.style.display = 'block';
+    // Si no está en la base, generar información genérica
+    if (!encontrado) {
+        encontrado = {
+            riesgo: 2,
+            visado: "Consultar embajada",
+            moneda: "Local",
+            efectivo: "200 USD equivalente",
+            alertas: "Consultar fuentes oficiales antes de viajar"
+        };
+        clave = query;
     }
+    
+    const nombreMostrar = clave.split(' ').map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' ');
+    
+    resultadoDiv.innerHTML = `
+        <div style="background:linear-gradient(135deg,#667eea,#764ba2);border-radius:24px;padding:25px;color:white;">
+            <h2>🎯 ${nombreMostrar}</h2>
+            <div style="background:rgba(255,255,255,0.15);border-radius:16px;padding:20px;">
+                <p><strong>🛡️ Seguridad:</strong> ${riesgoTexto(encontrado.riesgo)}</p>
+                <p><strong>🎫 Visado:</strong> ${encontrado.visado}</p>
+                <p><strong>💰 Moneda:</strong> ${encontrado.moneda}</p>
+                <p><strong>💵 Efectivo recomendado:</strong> ${encontrado.efectivo}</p>
+                <p><strong>📘 Pasaporte:</strong> 6 meses validez mínima</p>
+                <p><strong>💉 Vacunas:</strong> Consultar OMS según destino</p>
+                ${encontrado.alertas ? `<p><strong>⚠️ Alertas:</strong> ${encontrado.alertas}</p>` : ''}
+                <p><strong>📞 Emergencias:</strong> 112 / 911</p>
+            </div>
+            <button onclick="cerrarDestino()" style="margin-top:15px;background:#666;border:none;padding:10px 20px;border-radius:8px;color:white;cursor:pointer;">✖️ Cerrar</button>
+        </div>
+    `;
+    resultadoDiv.style.display = 'block';
+    resultadoDiv.scrollIntoView({ behavior: 'smooth' });
 };
 
 window.cerrarDestino = function() {
     document.getElementById('destino-seleccionado').style.display = 'none';
     document.getElementById('buscador-destino').value = '';
-    actualizarTabsGlobal();
 };
 
-function mostrarTodosDestinos() {
-    const container = document.getElementById('destinos');
-    if (!container) return;
-    
-    let html = '<div style="display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));">';
-    for (const [k, v] of Object.entries(DESTINOS_DATA)) {
-        html += `
-            <div style="background:white;border-radius:16px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
-                <h3>✈️ ${v.nombre}</h3>
-                <p>${mostrarRiesgo(v.riesgo)}</p>
-                <button onclick="document.getElementById('buscador-destino').value='${k}';buscarDestino();" style="background:#667eea;color:white;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;">Ver detalles</button>
-            </div>
-        `;
-    }
-    html += '</div>';
-    container.innerHTML = html;
-    document.getElementById('total-destinos').innerText = Object.keys(DESTINOS_DATA).length;
-    document.getElementById('ultima-actualizacion').innerText = new Date().toLocaleString();
-}
+// Sugerencias para el datalist (países más buscados)
+const paisesSugeridos = [
+    "china", "corea del norte", "corea del sur", "japon", "tailandia", "vietnam", "india",
+    "iran", "irak", "israel", "emiratos arabes", "qatar", "arabia saudita",
+    "rusia", "ucrania", "españa", "francia", "reino unido",
+    "estados unidos", "mexico", "brasil", "colombia",
+    "egipto", "marruecos", "sudafrica"
+];
 
-// Configurar tabs
+// Actualizar datalist
 document.addEventListener('DOMContentLoaded', function() {
-    mostrarTodosDestinos();
-    actualizarTabsGlobal();
-    
-    // Configurar botones de tabs
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.onclick = () => cambiarTab(btn.getAttribute('data-tab'));
-    });
+    const datalist = document.getElementById('lista-destinos');
+    if (datalist) {
+        datalist.innerHTML = '';
+        paisesSugeridos.forEach(pais => {
+            const option = document.createElement('option');
+            option.value = pais;
+            datalist.appendChild(option);
+        });
+    }
     
     // Configurar buscador
     const btn = document.getElementById('btn-buscar');
-    if (btn) btn.onclick = window.buscarDestino;
+    if (btn) btn.onclick = window.buscarPais;
     
     const input = document.getElementById('buscador-destino');
-    if (input) input.onkeypress = (e) => { if (e.key === 'Enter') window.buscarDestino(); };
+    if (input) input.onkeypress = (e) => { if (e.key === 'Enter') window.buscarPais(); };
 });
