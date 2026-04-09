@@ -232,3 +232,93 @@ body {
     border-radius: 20px;
     color: #666;
 }
+
+/* SELECTOR DE DESTINO */
+.selector-container {
+    background: white;
+    border-radius: 24px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.selector-container h2 {
+    margin-bottom: 15px;
+    color: #1a1a2e;
+}
+
+.selector-input-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+#buscador-destino {
+    flex: 1;
+    padding: 14px 18px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+
+#buscador-destino:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.btn-primary {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover {
+    background: #5a67d8;
+}
+
+.selector-mensaje {
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* DESTINO SELECCIONADO */
+.destino-seleccionado {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 24px;
+    padding: 25px;
+    margin-bottom: 30px;
+    color: white;
+}
+
+.destino-seleccionado h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.destino-seleccionado .destino-card {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.section-header {
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    color: white;
+    margin-bottom: 5px;
+}
+
+.section-header p {
+    color: rgba(255,255,255,0.7);
+}

@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trip-OSINT - Seguridad e Inteligencia para Viajes</title>
-    <meta name="description" content="Dashboard OSINT con requisitos de viaje, alertas de seguridad, vacunas y documentación actualizada diariamente">
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <!-- HEADER PROFESIONAL -->
+        <!-- HEADER -->
         <div class="header">
             <h1>✈️ Trip-OSINT</h1>
             <p class="tagline">Inteligencia de viajes · OSINT · Actualización diaria</p>
@@ -21,6 +20,42 @@
                 <span class="badge">💰 Tipo cambio real</span>
             </div>
         </div>
+
+        <!-- SELECTOR DE DESTINO -->
+        <div class="selector-container">
+            <h2>🌍 Elige tu destino</h2>
+            <div class="selector-grid">
+                <div class="selector-input-group">
+                    <input type="text" id="buscador-destino" placeholder="Buscar país o ciudad... (ej: Japón, Tailandia, Nueva York)" list="lista-destinos">
+                    <datalist id="lista-destinos">
+                        <option value="gold_coast">🇦🇺 Gold Coast (Australia)</option>
+                        <option value="bali">🇮🇩 Bali (Indonesia)</option>
+                        <option value="saigon">🇻🇳 Saigon (Vietnam)</option>
+                        <option value="tokio">🇯🇵 Tokio (Japón)</option>
+                        <option value="paris">🇫🇷 París (Francia)</option>
+                        <option value="roma">🇮🇹 Roma (Italia)</option>
+                        <option value="londres">🇬🇧 Londres (Reino Unido)</option>
+                        <option value="nueva_york">🇺🇸 Nueva York (EEUU)</option>
+                        <option value="bangkok">🇹🇭 Bangkok (Tailandia)</option>
+                        <option value="cancun">🇲🇽 Cancún (México)</option>
+                        <option value="dubai">🇦🇪 Dubái (EAU)</option>
+                        <option value="sydney">🇦🇺 Sídney (Australia)</option>
+                    </datalist>
+                    <button id="btn-buscar" class="btn-primary">🔍 Buscar / Añadir</button>
+                </div>
+                <div class="selector-mensaje" id="selector-mensaje"></div>
+            </div>
+        </div>
+
+        <!-- DESTINO SELECCIONADO (se muestra al buscar) -->
+        <div id="destino-seleccionado" class="destino-seleccionado" style="display:none;"></div>
+
+        <!-- LISTA DE TODOS LOS DESTINOS DISPONIBLES -->
+        <div class="section-header">
+            <h2>📊 Todos los destinos monitorizados</h2>
+            <p>Datos actualizados desde fuentes oficiales</p>
+        </div>
+        <div id="destinos" class="destinos-grid"></div>
 
         <!-- KPIS GLOBALES -->
         <div class="kpi-grid">
@@ -33,19 +68,12 @@
                 <div class="kpi-label">Última actualización</div>
             </div>
             <div class="kpi-card">
-                <div class="kpi-value" id="nivel-riesgo-global">🟡</div>
-                <div class="kpi-label">Riesgo global medio</div>
-            </div>
-            <div class="kpi-card">
                 <div class="kpi-value" id="alertas-activas">0</div>
                 <div class="kpi-label">Alertas activas</div>
             </div>
         </div>
 
-        <!-- DESTINOS (se llena con JS) -->
-        <div id="destinos" class="destinos-grid"></div>
-
-        <!-- SECCIÓN DOCUMENTACIÓN ÚTIL -->
+        <!-- DOCUMENTACIÓN -->
         <div class="documentacion">
             <h2>📋 Documentación para llevar (imprimir SÍ o SÍ)</h2>
             <div class="docs-grid">
@@ -53,7 +81,7 @@
                     <div class="doc-icon">📘</div>
                     <h3>Checklist viaje</h3>
                     <p>Documentación, reservas, seguros, contactos</p>
-                    <a href="docs-usuario/checklist_viaje_familiar.pdf" class="btn">Descargar PDF</a>
+                    <a href="docs-usuario/checklist_viaje_familiar.pdf.html" class="btn">Descargar PDF</a>
                 </div>
                 <div class="doc-card">
                     <div class="doc-icon">🛂</div>
@@ -74,13 +102,8 @@
                     <a href="docs-usuario/dinero_tarjetas.pdf" class="btn">Descargar PDF</a>
                 </div>
             </div>
-            <div class="drive-link">
-                📂 <strong>Carpeta Google Drive:</strong> 
-                <a href="https://drive.google.com/drive/folders/xxxx" target="_blank">Plantillas editables (haz tu copia)</a>
-            </div>
         </div>
 
-        <!-- FOOTER -->
         <div class="footer">
             <p>Mantenido por <a href="https://github.com/mcasrom">@mcasrom</a> · Datos OSINT · 
             <a href="https://github.com/mcasrom/trip-osint">Repositorio GitHub</a></p>
