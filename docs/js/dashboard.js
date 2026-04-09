@@ -97,7 +97,7 @@ function buscarPais() {
     const resultadoDiv = document.getElementById('destino-seleccionado');
     
     if (!query) {
-        resultadoDiv.innerHTML = '<div style="background:#fef7e0;padding:15px;border-radius:12px;">✏️ Escribe un país</div>';
+        resultadoDiv.innerHTML = '<div style="background:#fef7e0;padding:15px;border-radius:12px;">✏️ Escribe un país</div><div id="recursos-container"></div>';
         resultadoDiv.style.display = 'block';
         return;
     }
@@ -124,13 +124,13 @@ function buscarPais() {
                     <p><strong>💰 Moneda:</strong> ${encontrado.moneda}</p>
                     <p><strong>💵 Efectivo:</strong> ${encontrado.efectivo}</p>
                     ${encontrado.alertas ? `<p><strong>⚠️ ALERTA:</strong> ${encontrado.alertas}</p>` : ''}
-                </div>
+                </div><div id="recursos-container"></div>
                 <button onclick="cerrarDestino()" style="margin-top:15px;background:#666;border:none;padding:10px 20px;border-radius:8px;color:white;cursor:pointer;">✖️ Cerrar</button>
-            </div>
+            </div><div id="recursos-container"></div>
         `;
         resultadoDiv.style.display = 'block';
     } else {
-        resultadoDiv.innerHTML = `<div style="background:#fef7e0;padding:15px;border-radius:12px;">❌ "${query}" no encontrado. Prueba: china, corea del norte, rusia, iran</div>`;
+        resultadoDiv.innerHTML = `<div style="background:#fef7e0;padding:15px;border-radius:12px;">❌ "${query}" no encontrado. Prueba: china, corea del norte, rusia, iran</div><div id="recursos-container"></div>`;
         resultadoDiv.style.display = 'block';
     }
 }
