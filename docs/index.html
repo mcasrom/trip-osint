@@ -13,47 +13,73 @@
         <div class="header">
             <h1>✈️ Trip-OSINT</h1>
             <p class="tagline">Inteligencia de viajes · OSINT · Actualización diaria</p>
-            <div class="badges">
-                <span class="badge">📡 Datos oficiales MAEC</span>
-                <span class="badge">📰 Prensa local</span>
-                <span class="badge">💉 Vacunas OMS</span>
-                <span class="badge">💰 Tipo cambio real</span>
-            </div>
         </div>
 
-        <!-- SELECTOR DE DESTINO -->
-        <div class="selector-container">
-            <h2>🌍 Elige tu destino</h2>
-            <div class="selector-grid">
-                <div class="selector-input-group">
-                    <input type="text" id="buscador-destino" placeholder="Buscar país o ciudad... (ej: Japón, Tailandia, Nueva York)" list="lista-destinos">
-                    <datalist id="lista-destinos">
-                        <option value="gold_coast">🇦🇺 Gold Coast (Australia)</option>
-                        <option value="bali">🇮🇩 Bali (Indonesia)</option>
-                        <option value="saigon">🇻🇳 Saigon (Vietnam)</option>
-                        <option value="tokio">🇯🇵 Tokio (Japón)</option>
-                        <option value="paris">🇫🇷 París (Francia)</option>
-                        <option value="roma">🇮🇹 Roma (Italia)</option>
-                        <option value="londres">🇬🇧 Londres (Reino Unido)</option>
-                        <option value="nueva_york">🇺🇸 Nueva York (EEUU)</option>
-                        <option value="bangkok">🇹🇭 Bangkok (Tailandia)</option>
-                        <option value="cancun">🇲🇽 Cancún (México)</option>
-                        <option value="dubai">🇦🇪 Dubái (EAU)</option>
-                        <option value="sydney">🇦🇺 Sídney (Australia)</option>
-                    </datalist>
-                    <button id="btn-buscar" class="btn-primary">🔍 Buscar / Añadir</button>
+        <!-- TABS FUNCIONALES -->
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="maec">📡 MAEC</button>
+                <button class="tab-btn" data-tab="prensa">📰 Prensa Local</button>
+                <button class="tab-btn" data-tab="vacunas">💉 Vacunas OMS</button>
+                <button class="tab-btn" data-tab="cambio">💰 Tipo Cambio</button>
+            </div>
+            
+            <div class="tab-content active" id="tab-maec">
+                <h3>📡 Recomendaciones Ministerio Asuntos Exteriores</h3>
+                <div id="maec-info" class="info-box">
+                    <p>Cargando datos oficiales...</p>
                 </div>
-                <div class="selector-mensaje" id="selector-mensaje"></div>
+            </div>
+            
+            <div class="tab-content" id="tab-prensa">
+                <h3>📰 Últimas noticias prensa local</h3>
+                <div id="prensa-info" class="info-box">
+                    <p>Cargando noticias...</p>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="tab-vacunas">
+                <h3>💉 Recomendaciones de vacunación OMS</h3>
+                <div id="vacunas-info" class="info-box">
+                    <p>Cargando requisitos sanitarios...</p>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="tab-cambio">
+                <h3>💰 Tipo de cambio actualizado</h3>
+                <div id="cambio-info" class="info-box">
+                    <p>Cargando tasas de cambio...</p>
+                </div>
             </div>
         </div>
 
-        <!-- DESTINO SELECCIONADO (se muestra al buscar) -->
+        <!-- BUSCADOR -->
+        <div class="selector-container">
+            <h3>🌍 Buscar destino específico</h3>
+            <div class="selector-input-group">
+                <input type="text" id="buscador-destino" placeholder="Ej: bali, tokio, paris, nueva_york" list="lista-destinos">
+                <datalist id="lista-destinos">
+                    <option>gold_coast</option>
+                    <option>bali</option>
+                    <option>saigon</option>
+                    <option>tokio</option>
+                    <option>paris</option>
+                    <option>roma</option>
+                    <option>londres</option>
+                    <option>nueva_york</option>
+                    <option>bangkok</option>
+                    <option>cancun</option>
+                    <option>dubai</option>
+                </datalist>
+                <button id="btn-buscar" class="btn-primary">🔍 Buscar</button>
+            </div>
+        </div>
+
         <div id="destino-seleccionado" class="destino-seleccionado" style="display:none;"></div>
 
-        <!-- LISTA DE TODOS LOS DESTINOS DISPONIBLES -->
+        <!-- TODOS LOS DESTINOS -->
         <div class="section-header">
             <h2>📊 Todos los destinos monitorizados</h2>
-            <p>Datos actualizados desde fuentes oficiales</p>
         </div>
         <div id="destinos" class="destinos-grid"></div>
 
@@ -75,31 +101,27 @@
 
         <!-- DOCUMENTACIÓN -->
         <div class="documentacion">
-            <h2>📋 Documentación para llevar (imprimir SÍ o SÍ)</h2>
+            <h2>📋 Documentación para llevar</h2>
             <div class="docs-grid">
                 <div class="doc-card">
                     <div class="doc-icon">📘</div>
                     <h3>Checklist viaje</h3>
-                    <p>Documentación, reservas, seguros, contactos</p>
-                    <a href="docs-usuario/checklist_viaje_familiar.pdf.html.html" class="btn">Descargar PDF</a>
+                    <a href="docs-usuario/checklist_viaje_familiar.pdf.html" class="btn">Descargar</a>
                 </div>
                 <div class="doc-card">
                     <div class="doc-icon">🛂</div>
                     <h3>Documentos obligatorios</h3>
-                    <p>Pasaporte, visados, vacunas, formularios</p>
-                    <a href="docs-usuario/documentos_obligatorios.pdf.html" class="btn">Descargar PDF</a>
+                    <a href="docs-usuario/documentos_obligatorios.pdf.html" class="btn">Descargar</a>
                 </div>
                 <div class="doc-card">
                     <div class="doc-icon">🆘</div>
                     <h3>Tarjeta emergencia</h3>
-                    <p>Números de teléfono, embajadas, seguros</p>
-                    <a href="docs-usuario/tarjeta_emergencia.pdf.html" class="btn">Descargar PDF</a>
+                    <a href="docs-usuario/tarjeta_emergencia.pdf.html" class="btn">Descargar</a>
                 </div>
                 <div class="doc-card">
                     <div class="doc-icon">💰</div>
                     <h3>Dinero y tarjetas</h3>
-                    <p>Efectivo recomendado, comisiones, cajeros</p>
-                    <a href="docs-usuario/dinero_tarjetas.pdf.html" class="btn">Descargar PDF</a>
+                    <a href="docs-usuario/dinero_tarjetas.pdf.html" class="btn">Descargar</a>
                 </div>
             </div>
         </div>
@@ -107,7 +129,6 @@
         <div class="footer">
             <p>Mantenido por <a href="https://github.com/mcasrom">@mcasrom</a> · Datos OSINT · 
             <a href="https://github.com/mcasrom/trip-osint">Repositorio GitHub</a></p>
-            <p class="disclaimer">⚠️ Verificar siempre fuentes oficiales antes de viajar</p>
         </div>
     </div>
     <script src="js/dashboard.js"></script>
