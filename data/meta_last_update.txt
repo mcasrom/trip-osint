@@ -1,5 +1,5 @@
 {
-  "ultima_actualizacion": "2026-04-09T17:16:27.382509",
+  "ultima_actualizacion": "2026-04-09T18:23:13.836991",
   "destinos": [
     "paris",
     "roma",
