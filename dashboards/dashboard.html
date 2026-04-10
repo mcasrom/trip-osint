@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Dashboard OSINT</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+h1 { margin-bottom: 10px; }
+.card {
+  background: white;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+th, td {
+  border: 1px solid #ccc;
+  padding: 6px;
+  text-align: left;
+}
+th {
+  background: #eee;
+}
+</style>
+</head>
+<body>
+
+<h1>Dashboard OSINT</h1>
+
+<div class="card">
+  <h2>Actividad diaria</h2>
+  <table id="tbl_activity"></table>
+</div>
+
+<div class="card">
+  <h2>Tensión</h2>
+  <table id="tbl_tension"></table>
+</div>
+
+<div class="card">
+  <h2>Riesgo</h2>
+  <table id="tbl_risk"></table>
+</div>
+
+<script>
+async function loadCSV(path) {
+  const res = await fetch(path);
+  const text = await res.text();
+  const lines = text.trim().split("\n");
+  const headers = lines[0].split(",");
+  const rows = lines.slice(1).map(l => l.split(","));
+  return { headers, rows };
+}
+
+function renderTable(elementId, data) {
+  const tbl = document.getElementById(elementId);
+  let html = "<tr>";
+  data.headers.forEach(h => html += `<th>${h}</th>`);
+  html += "</tr>";
+  data.rows.forEach(r => {
+    html += "<tr>";
+    r.forEach(c => html += `<td>${c}</td>`);
+    html += "</tr>";
+  });
+  tbl.innerHTML = html;
+}
+
+async function main() {
+  const activity = await loadCSV("../data/kpis/kpi_activity.csv");
+  renderTable("tbl_activity", activity);
+
+  const tension = await loadCSV("../data/kpis/kpi_tension.csv");
+  renderTable("tbl_tension", tension);
+
+  const risk = await loadCSV("../data/kpis/kpi_risk.csv");
+  renderTable("tbl_risk", risk);
+}
+
+main();
+</script>
+
+</body>
+</html>
