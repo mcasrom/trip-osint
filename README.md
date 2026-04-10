@@ -1,15 +1,18 @@
-# Trip-OSINT
+# trip-osint
 
-**GitHub:** https://github.com/mcasrom/trip-osint  
-**Dashboard:** https://mcasrom.github.io/trip-osint  
+Sistema OSINT modular para ingestión, normalización, enriquecimiento y análisis de señales relacionadas con movilidad, seguridad, clima y política.
 
-Destinos: Gold Coast (Australia) | Bali (Indonesia) | Saigon (Vietnam)
+## Pipeline
 
-Actualización diaria a las 00:00 desde Odroid C2.
+1. Ingest → `data/raw/`
+2. Normalize → `data/processed/`
+3. Enrich → `data/processed/`
+4. KPIs → `data/kpis/`
 
-## Documentación para viajeros
-- Checklist impreso
-- Documentos obligatorios
-- Tarjeta de emergencia
+## Ejecución
 
-Mantenido por @mcasrom
+python3 src/ingest/ingest_rss.py  
+python3 src/normalize/normalize_events.py  
+python3 src/enrich/enrich_events.py  
+python3 src/kpis/kpi_activity.py  
+

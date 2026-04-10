@@ -1,0 +1,115 @@
+categories:
+  security:
+    keywords:
+      - attack
+      - bombing
+      - explosion
+      - shooting
+      - armed
+      - militia
+      - conflict
+      - clashes
+      - fighting
+      - terror
+      - extremist
+      - insurgent
+      - kidnapping
+      - hostage
+      - riot
+      - unrest
+      - violence
+      - military
+      - drone strike
+    subcategories:
+      conflict: [conflict, clashes, fighting]
+      terrorism: [terror, extremist, bombing]
+      crime: [robbery, kidnapping, shooting]
+      unrest: [riot, unrest]
+      military: [military, airstrike]
+      cyber: [cyberattack, ransomware]
+
+  mobility:
+    keywords:
+      - transport
+      - travel
+      - route
+      - road
+      - highway
+      - traffic
+      - rail
+      - train
+      - metro
+      - subway
+      - airport
+      - flight
+      - aviation
+      - port
+      - maritime
+      - shipping
+      - vessel
+      - ferry
+      - logistics
+      - supply chain
+      - cargo
+      - truck
+      - border crossing
+    subcategories:
+      road: [road, highway, traffic]
+      rail: [train, rail, metro]
+      aviation: [airport, flight, runway]
+      maritime: [port, vessel, shipping]
+      logistics: [cargo, supply chain]
+      infrastructure: [bridge, tunnel, maintenance]
+
+  environment:
+    keywords:
+      - storm
+      - rainfall
+      - flood
+      - wildfire
+      - fire
+      - heatwave
+      - earthquake
+      - landslide
+      - hurricane
+      - cyclone
+      - tornado
+      - drought
+      - pollution
+      - air quality
+      - weather alert
+    subcategories:
+      weather: [storm, rainfall, heatwave]
+      wildfire: [wildfire, blaze]
+      flood: [flood, inundation]
+      earthquake: [earthquake, seismic]
+      pollution: [pollution, smog]
+
+  politics:
+    keywords:
+      - government
+      - ministry
+      - regulation
+      - policy
+      - decree
+      - sanction
+      - agreement
+      - negotiation
+      - treaty
+      - diplomatic
+      - embassy
+      - official statement
+      - border policy
+      - visa
+      - restriction
+    subcategories:
+      regulation: [policy, decree]
+      diplomacy: [negotiation, treaty]
+      sanctions: [sanction, embargo]
+      governance: [government, ministry]
+
+  other:
+    keywords: []
+    subcategories:
+      general: []
+      unknown: []
