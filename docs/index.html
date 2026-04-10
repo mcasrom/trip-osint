@@ -1,152 +1,88 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trip-OSINT - Seguridad e Inteligencia para Viajes</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>OSINT Dashboard</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+h1 { margin-bottom: 10px; }
+.card {
+  background: white;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+th, td {
+  border: 1px solid #ccc;
+  padding: 6px;
+  text-align: left;
+}
+th {
+  background: #eee;
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <!-- HEADER -->
-        <div class="header">
-            <h1>✈️ Trip-OSINT</h1>
-            <p class="tagline">Inteligencia de viajes · OSINT · Actualización diaria</p>
-        </div>
 
-        <!-- TABS FUNCIONALES -->
-        <div class="tabs-container">
-            <div class="tabs">
-                <button class="tab-btn active" data-tab="maec">📡 MAEC</button>
-                <button class="tab-btn" data-tab="prensa">📰 Prensa Local</button>
-                <button class="tab-btn" data-tab="vacunas">💉 Vacunas OMS</button>
-                <button class="tab-btn" data-tab="cambio">💰 Tipo Cambio</button>
-            </div>
-            
-            <div class="tab-content active" id="tab-maec">
-                <h3>📡 Recomendaciones Ministerio Asuntos Exteriores</h3>
-                <div id="maec-info" class="info-box">
-                    <p>Cargando datos oficiales...</p>
-                </div>
-            </div>
-            
-            <div class="tab-content" id="tab-prensa">
-                <h3>📰 Últimas noticias prensa local</h3>
-                <div id="prensa-info" class="info-box">
-                    <p>Cargando noticias...</p>
-                </div>
-            </div>
-            
-            <div class="tab-content" id="tab-vacunas">
-                <h3>💉 Recomendaciones de vacunación OMS</h3>
-                <div id="vacunas-info" class="info-box">
-                    <p>Cargando requisitos sanitarios...</p>
-                </div>
-            </div>
-            
-            <div class="tab-content" id="tab-cambio">
-                <h3>💰 Tipo de cambio actualizado</h3>
-                <div id="cambio-info" class="info-box">
-                    <p>Cargando tasas de cambio...</p>
-                </div>
-            </div>
-        </div>
+<h1>OSINT Dashboard</h1>
 
-        <!-- BUSCADOR -->
-        <div class="selector-container">
-            <h3>🌍 Buscar destino específico</h3>
-            <div class="selector-input-group">
-                <input type="text" id="buscador-destino" placeholder="Ej: bali, tokio, paris, nueva_york" list="lista-destinos">
-                <datalist id="lista-destinos">
-                    <option>gold_coast</option>
-                    <option>bali</option>
-                    <option>saigon</option>
-                    <option>tokio</option>
-                    <option>paris</option>
-                    <option>roma</option>
-                    <option>londres</option>
-                    <option>nueva_york</option>
-                    <option>bangkok</option>
-                    <option>cancun</option>
-                    <option>dubai</option>
-                </datalist>
-                <button id="btn-buscar" class="btn-primary">🔍 Buscar</button>
-            </div>
-        </div>
+<div class="card">
+  <h2>Actividad diaria</h2>
+  <table id="tbl_activity"></table>
+</div>
 
-        <div id="destino-seleccionado" class="destino-seleccionado" style="display:none;"></div>
+<div class="card">
+  <h2>Tensión</h2>
+  <table id="tbl_tension"></table>
+</div>
 
-        <!-- TODOS LOS DESTINOS -->
-        <div class="section-header">
-            <h2>📊 Todos los destinos monitorizados</h2>
-        </div>
-        <div id="destinos" class="destinos-grid"></div>
+<div class="card">
+  <h2>Riesgo</h2>
+  <table id="tbl_risk"></table>
+</div>
 
-        <!-- KPIS GLOBALES -->
-        <div class="alertas-globales">
-        <h3>🚨 ALERTAS OSINT GLOBALES</h3>
-        <div class="kpi-grid-alertas">
-            <div class="kpi-card">
-                <div class="kpi-value" id="alertas-criticas">0</div>
-                <div class="kpi-label">Países RIESGO CRÍTICO</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-value" id="alertas-altas">0</div>
-                <div class="kpi-label">Países RIESGO ALTO</div>
-            </div>
-        </div>
-        <div id="paises-alerta-lista" class="paises-alerta"></div>
-    </div>
-    
-    <div class="kpi-grid">
-            <div class="kpi-card">
-                <div class="kpi-value" id="total-destinos">0</div>
-                <div class="kpi-label">Destinos monitorizados</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-value" id="ultima-actualizacion">--</div>
-                <div class="kpi-label">Última actualización</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-value" id="alertas-activas">0</div>
-                <div class="kpi-label">Alertas activas</div>
-            </div>
-        </div>
+<script>
+async function loadCSV(path) {
+  const res = await fetch(path);
+  const text = await res.text();
+  const lines = text.trim().split("\\n");
+  const headers = lines[0].split(",");
+  const rows = lines.slice(1).map(l => l.split(","));
+  return { headers, rows };
+}
 
-        <!-- DOCUMENTACIÓN -->
-        <div class="documentacion">
-            <h2>📋 Documentación para llevar</h2>
-            <div class="docs-grid">
-                <div class="doc-card">
-                    <div class="doc-icon">📘</div>
-                    <h3>Checklist viaje</h3>
-                    <a href="docs-usuario/checklist_viaje_familiar.pdf.html" class="btn">Descargar</a>
-                </div>
-                <div class="doc-card">
-                    <div class="doc-icon">🛂</div>
-                    <h3>Documentos obligatorios</h3>
-                    <a href="docs-usuario/documentos_obligatorios.pdf.html" class="btn">Descargar</a>
-                </div>
-                <div class="doc-card">
-                    <div class="doc-icon">🆘</div>
-                    <h3>Tarjeta emergencia</h3>
-                    <a href="docs-usuario/tarjeta_emergencia.pdf.html" class="btn">Descargar</a>
-                </div>
-                <div class="doc-card">
-                    <div class="doc-icon">💰</div>
-                    <h3>Dinero y tarjetas</h3>
-                    <a href="docs-usuario/dinero_tarjetas.pdf.html" class="btn">Descargar</a>
-                </div>
-            </div>
-        </div>
+function renderTable(elementId, data) {
+  const tbl = document.getElementById(elementId);
+  let html = "<tr>";
+  data.headers.forEach(h => html += `<th>${h}</th>`);
+  html += "</tr>";
+  data.rows.forEach(r => {
+    html += "<tr>";
+    r.forEach(c => html += `<td>${c}</td>`);
+    html += "</tr>";
+  });
+  tbl.innerHTML = html;
+}
 
-        <div class="footer">
-            <p>Mantenido por <a href="https://github.com/mcasrom">@mcasrom</a> · Datos OSINT · 
-            <a href="https://github.com/mcasrom/trip-osint">Repositorio GitHub</a></p>
-        </div>
-    </div>
-    <script src="js/recursos.js"></script>
-    <script src="js/dashboard.js"></script>
+async function main() {
+  const activity = await loadCSV("../data/kpis/kpi_activity.csv");
+  renderTable("tbl_activity", activity);
+
+  const tension = await loadCSV("../data/kpis/kpi_tension.csv");
+  renderTable("tbl_tension", tension);
+
+  const risk = await loadCSV("../data/kpis/kpi_risk.csv");
+  renderTable("tbl_risk", risk);
+}
+
+main();
+</script>
+
 </body>
 </html>
