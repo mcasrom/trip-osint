@@ -1,4 +1,3 @@
-cat << 'EOF' > docs/index.html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,22 +9,13 @@ cat << 'EOF' > docs/index.html
 
 <h1>OSINT Dashboard</h1>
 
-<div class="panel">
-    <h2>Actividad diaria</h2>
-    <pre id="actividad"></pre>
-</div>
+<div id="actividad"></div>
+<div id="tension"></div>
+<div id="riesgo"></div>
 
-<div class="panel">
-    <h2>Tensión</h2>
-    <pre id="tension"></pre>
-</div>
-
-<div class="panel">
-    <h2>Riesgo</h2>
-    <pre id="riesgo"></pre>
-</div>
-
+<script src="js/alertas.js"></script>
+<script src="js/recursos.js"></script>
 <script src="js/dashboard.js"></script>
+
 </body>
 </html>
-EOF
