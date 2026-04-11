@@ -1,2 +1,4 @@
-feedparser
-pyyaml
+streamlit>=1.32.0
+requests>=2.31.0
+feedparser>=6.0.11
+pytz>=2024.1
