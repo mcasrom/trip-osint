@@ -3,19 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>OSINT Dashboard</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { background:#111; color:white; font-family:Arial; padding:20px; }
+        h1 { margin-bottom:20px; }
+        .card { background:#222; padding:20px; margin-bottom:20px; border-radius:10px; }
+        .pais { margin-bottom:10px; }
+    </style>
 </head>
 <body>
 
 <h1>OSINT Dashboard</h1>
 
-<div id="actividad"></div>
-<div id="tension"></div>
-<div id="riesgo"></div>
+<div id="actividad" class="card"></div>
+<div id="tension" class="card"></div>
+<div id="riesgo" class="card"></div>
 
 <script src="js/paises.js"></script>
-<script src="js/alertas.js"></script>
-<script src="js/recursos.js"></script>
 <script src="js/dashboard.js"></script>
 
 </body>
