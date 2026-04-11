@@ -1,3 +1,4 @@
+// Fuente única de datos de países para todo el dashboard
 const PAISES_INFO = {
     "brasil": { riesgo: 2, visado: "Exento 90 días", moneda: "BRL", efectivo: "500 BRL", alertas: "Precaución grandes ciudades" },
     "argentina": { riesgo: 2, visado: "Exento 90 días", moneda: "ARS", efectivo: "100,000 ARS", alertas: "Crisis económica" },
@@ -16,4 +17,3 @@ const PAISES_INFO = {
     "espana": { riesgo: 1, visado: "Exento UE", moneda: "EUR", efectivo: "200 EUR", alertas: "" },
     "mexico": { riesgo: 2, visado: "Exento", moneda: "MXN", efectivo: "4,000 MXN", alertas: "" }
 };
-const PAISES_INFO = {};
