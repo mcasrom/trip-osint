@@ -1,0 +1,130 @@
+{
+  "ultima_actualizacion": "2026-04-09T18:59:59.311584",
+  "total_alertas": 17,
+  "alertas_criticas": 9,
+  "alertas_altas": 8,
+  "paises_riesgo_4": [
+    {
+      "nombre": "Irán",
+      "riesgo": 4,
+      "motivo": "Conflicto armado activo",
+      "region": "Oriente Medio"
+    },
+    {
+      "nombre": "Irak",
+      "riesgo": 4,
+      "motivo": "Espacio aéreo cerrado",
+      "region": "Oriente Medio"
+    },
+    {
+      "nombre": "Israel",
+      "riesgo": 4,
+      "motivo": "Ataques con misiles",
+      "region": "Oriente Medio"
+    },
+    {
+      "nombre": "Palestina",
+      "riesgo": 4,
+      "motivo": "Zona de guerra",
+      "region": "Oriente Medio"
+    },
+    {
+      "nombre": "Siria",
+      "riesgo": 4,
+      "motivo": "Guerra civil",
+      "region": "Oriente Medio"
+    },
+    {
+      "nombre": "Líbano",
+      "riesgo": 4,
+      "motivo": "Crisis de seguridad",
+      "region": "Oriente Medio"
+    },
+    {
+      "nombre": "Yemen",
+      "riesgo": 4,
+      "motivo": "Guerra activa",
+      "region": "Oriente Medio"
+    },
+    {
+      "nombre": "Afganistán",
+      "riesgo": 4,
+      "motivo": "No viajar",
+      "region": "Asia"
+    },
+    {
+      "nombre": "Ucrania",
+      "riesgo": 4,
+      "motivo": "Guerra activa",
+      "region": "Europa"
+    }
+  ],
+  "paises_riesgo_3": [
+    {
+      "nombre": "Emiratos Árabes (Dubái)",
+      "riesgo": 3,
+      "motivo": "Cierre aeropuerto DXB",
+      "region": "Oriente Medio"
+    },
+    {
+      "nombre": "Qatar",
+      "riesgo": 3,
+      "motivo": "Cierre aeropuerto DOH",
+      "region": "Oriente Medio"
+    },
+    {
+      "nombre": "Kuwait",
+      "riesgo": 3,
+      "motivo": "Espacio aéreo cerrado",
+      "region": "Oriente Medio"
+    },
+    {
+      "nombre": "Baréin",
+      "riesgo": 3,
+      "motivo": "Espacio aéreo cerrado",
+      "region": "Oriente Medio"
+    },
+    {
+      "nombre": "Jordania",
+      "riesgo": 3,
+      "motivo": "Zonas fronterizas inseguras",
+      "region": "Oriente Medio"
+    },
+    {
+      "nombre": "Arabia Saudí",
+      "riesgo": 3,
+      "motivo": "Alertas en zonas fronterizas",
+      "region": "Oriente Medio"
+    },
+    {
+      "nombre": "Rusia",
+      "riesgo": 3,
+      "motivo": "Conflicto en curso",
+      "region": "Europa"
+    },
+    {
+      "nombre": "Birmania",
+      "riesgo": 3,
+      "motivo": "Golpe de estado",
+      "region": "Asia"
+    }
+  ],
+  "recomendaciones": [
+    "❌ NO VIAJAR a países con riesgo nivel 4",
+    "⚠️ APLAZAR viajes a países nivel 3",
+    "✈️ Verificar estado aeropuertos antes de volar",
+    "📞 Contactar embajada si estás en zona de conflicto"
+  ],
+  "aeropuertos_cerrados": [
+    "DXB (Dubái)",
+    "AUH (Abu Dabi)",
+    "DOH (Doha)"
+  ],
+  "fuentes": [
+    "MAEC España",
+    "US State Dept",
+    "IATA",
+    "EASA"
+  ],
+  "fecha_hora": "2026-04-09 18:59:59"
+}
