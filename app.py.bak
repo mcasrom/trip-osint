@@ -176,34 +176,17 @@ riesgo_labels = {
 emoji_r, label_r = riesgo_labels.get(nivel_riesgo, ("⚪", "Sin datos"))
 
 st.markdown(f"""
-<div style='background:linear-gradient(135deg,#0d1a2a 0%,#0a1018 100%);
-     border:1px solid #1e2d40;border-left:4px solid #00d4aa;
-     border-radius:8px;padding:20px 24px;margin-bottom:20px'>
-
-  <div style='font-family:JetBrains Mono;font-size:10px;color:#4a6080;
-       letter-spacing:2px;text-transform:uppercase;margin-bottom:6px'>
-    ▸ INTELIGENCIA DE VIAJE · OSINT · FUENTES OFICIALES
-  </div>
-
-  <div style='font-family:JetBrains Mono;font-size:1.4rem;font-weight:700;
-       color:#00d4aa;line-height:1.2;margin-bottom:8px'>
-    Viaja con inteligencia, no con suerte
-    <span style='font-size:0.9rem;color:#c8d8e8;font-weight:400'>&nbsp;— {pais['emoji']} {pais_nombre}</span>
-  </div>
-
-  <div style='margin-bottom:10px'>
-    <span class='risk-badge risk-{nivel_riesgo}'>{emoji_r} MAEC Nivel {nivel_riesgo}/5 · {label_r}</span>
-  </div>
-
-  <div style='font-size:12px;color:#4a6080;line-height:2'>
-    🏙️ <span style='color:#c8d8e8'>{pais['capital']}</span>
-    &nbsp;·&nbsp; 🌐 {pais['region']}
-    &nbsp;·&nbsp; 💱 {pais['moneda_nombre']} ({pais['moneda_codigo']})
-    &nbsp;·&nbsp; 🗣️ {pais.get('idioma','N/D')}
-    &nbsp;·&nbsp; 🔌 {pais.get('enchufes','N/D')} · {pais.get('voltaje','N/D')}
-    &nbsp;·&nbsp; 🚗 {pais.get('conduccion_lado','Derecha')}
-    &nbsp;·&nbsp; 🎯 <span style='color:#00d4aa'>{motivo}</span>
-  </div>
+<div class='trip-header'>
+    <h1>{pais['emoji']} {pais_nombre} &nbsp;
+        <span class='risk-badge risk-{nivel_riesgo}'>{emoji_r} {label_r}</span>
+    </h1>
+    <p>{pais['capital']} · {pais['region']} ·
+       {pais['moneda_nombre']} ({pais['moneda_codigo']}) ·
+       {pais.get('idioma','N/D')} ·
+       🔌 {pais.get('enchufes','N/D')} · {pais.get('voltaje','N/D')} ·
+       🚗 {pais.get('conduccion_lado','Derecha')} &nbsp;·&nbsp;
+       Motivo: <b style='color:#c8d8e8'>{motivo}</b>
+    </p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -218,10 +201,9 @@ tabs = st.tabs([
     "📰 Prensa local",
     "✅ Checklists",
     "ℹ Info & Contactos",
-    "🔬 Metodología & Fuentes",
 ])
 
-tab_riesgo, tab_maec, tab_meteo, tab_divisa, tab_requisitos, tab_salud, tab_prensa, tab_checklist, tab_info, tab_metodologia = tabs
+tab_riesgo, tab_maec, tab_meteo, tab_divisa, tab_requisitos, tab_salud, tab_prensa, tab_checklist, tab_info = tabs
 
 with tab_riesgo:
     from tabs.riesgo_global_tab import render as render_riesgo
@@ -258,10 +240,6 @@ with tab_checklist:
 with tab_info:
     from tabs.info_tab import render as render_info
     render_info(pais, pais_nombre)
-
-with tab_metodologia:
-    from tabs.metodologia_tab import render as render_metodologia
-    render_metodologia()
 
 # ── Footer global ─────────────────────────────────────────────────────────────
 st.markdown("""
