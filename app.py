@@ -75,6 +75,8 @@ html, body, [class*="css"] {
     margin: 0 0 4px 0;
 }
 .trip-header p { color: #4a6080; font-size: 13px; margin: 0; }
+[data-testid="stAppViewContainer"] > .main > div:first-child { padding-top: 0.5rem !important; }
+div.block-container { padding-top: 1rem !important; }
 .risk-badge {
     display: inline-block;
     padding: 4px 12px;
