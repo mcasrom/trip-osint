@@ -147,32 +147,27 @@ with st.sidebar:
         '\U0001f517 Compartir este destino</a></div>'
     )
     st.markdown(_share_html, unsafe_allow_html=True)
-    st.markdown(f"""
-    <hr style='border-color:#1e2d40;margin:16px 0'>
-    <div style='background:#0d1a2a;border:1px solid #1e2d40;border-radius:8px;padding:12px'>
-        <div style='font-size:11px;color:#4a6080;margin-bottom:8px;font-family:JetBrains Mono'>
-            RESUMEN DESTINO
-        </div>
-        <div style='font-size:12px;color:#c8d8e8;line-height:1.8'>
-            🏙️ {pais.get('capital','N/D')}<br>
-            🗣️ {pais.get('idioma','N/D')}<br>
-            🔌 {pais.get('enchufes','N/D')}<br>
-            💱 {pais.get('moneda_codigo','N/D')} · {pais.get('voltaje','N/D')}<br>
-            🚗 {pais.get('conduccion_lado','N/D')}<br>
-            <span style='color:{color_r};font-weight:700'>⚠️ Riesgo MAEC: {nivel_r}/5</span>
-        </div>
-    </div>
-    <div style='margin-top:16px;text-align:center'>
-        <a href='https://ko-fi.com/mcasrom' target='_blank'
-           style='display:inline-block;background:#FF5E5B;color:#fff;
-           font-family:JetBrains Mono;font-size:12px;font-weight:700;
-           padding:8px 16px;border-radius:20px;text-decoration:none;
-
-           letter-spacing:0.5px'>
-            ☕ Invítame a un café
-        </a>
-    </div>
-    """, unsafe_allow_html=True)
+    _sb = (
+        "<hr style=\"border-color:#1e2d40;margin:16px 0\">"
+        "<div style=\"background:#0d1a2a;border:1px solid #1e2d40;border-radius:8px;padding:12px\">"
+        "<div style=\"font-size:11px;color:#4a6080;margin-bottom:8px;font-family:JetBrains Mono\">RESUMEN DESTINO</div>"
+        "<div style=\"font-size:12px;color:#c8d8e8;line-height:1.8\">"
+        f"\U0001f3d9\ufe0f {pais.get('capital','N/D')}<br>"
+        f"\U0001f5e3\ufe0f {pais.get('idioma','N/D')}<br>"
+        f"\U0001f50c {pais.get('enchufes','N/D')}<br>"
+        f"\U0001f4b1 {pais.get('moneda_codigo','N/D')} · {pais.get('voltaje','N/D')}<br>"
+        f"\U0001f697 {pais.get('conduccion_lado','N/D')}<br>"
+        f"<span style=\"color:{color_r};font-weight:700\">\u26a0\ufe0f Riesgo MAEC: {nivel_r}/5</span>"
+        "</div></div>"
+        "<div style=\"margin-top:16px;text-align:center\">"
+        "<a href=\"https://ko-fi.com/mcasrom\" target=\"_blank\" "
+        "style=\"display:inline-block;background:#FF5E5B;color:#fff;"
+        "font-family:JetBrains Mono;font-size:12px;font-weight:700;"
+        "padding:8px 16px;border-radius:20px;text-decoration:none;"
+        "letter-spacing:0.5px\">☕ Inv\u00edtame a un caf\u00e9</a>"
+        "</div>"
+    )
+    st.markdown(_sb, unsafe_allow_html=True)
     st.markdown("""
     <div style='font-size:10px;color:#4a6080;font-family:JetBrains Mono;
          text-align:center;margin-top:12px;line-height:1.8'>
