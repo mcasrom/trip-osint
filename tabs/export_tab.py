@@ -9,12 +9,13 @@ from datetime import datetime
 
 COLORES_RIESGO = {1: "BAJO", 2: "MODERADO", 3: "ALTO", 4: "MUY ALTO", 5: "EXTREMO"}
 
+FONT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "fonts")
+
 class InformePDF(FPDF):
     def __init__(self):
         super().__init__()
-        _fonts = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "fonts")
-        self.add_font("DejaVu", "", os.path.join(_fonts, "DejaVuSans.ttf"))
-        self.add_font("DejaVu", "B", os.path.join(_fonts, "DejaVuSans-Bold.ttf"))
+        self.add_font("DejaVu", "", os.path.join(FONT_DIR, "DejaVuSans.ttf"))
+        self.add_font("DejaVu", "B", os.path.join(FONT_DIR, "DejaVuSans-Bold.ttf"))
 
     def header(self):
         self.set_font("DejaVu", "B", 14)
@@ -41,10 +42,10 @@ def seccion(pdf, titulo):
 def fila(pdf, label, valor):
     pdf.set_font("DejaVu", "B", 9)
     pdf.set_text_color(74, 96, 128)
-    pdf.cell(55, 6, label + ":", ln=False)
+    pdf.cell(45, 6, label + ":", ln=False)
     pdf.set_font("DejaVu", "", 9)
     pdf.set_text_color(30, 30, 30)
-    pdf.multi_cell(0, 6, str(valor) if valor else "N/D")
+    pdf.multi_cell(pdf.w - pdf.r_margin - pdf.l_margin - 45, 6, str(valor) if valor else "N/D")
 
 def generar_pdf(pais_nombre, pais, motivo):
     pdf = InformePDF()
