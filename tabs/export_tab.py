@@ -1,3 +1,4 @@
+import os
 """
 tabs/export_tab.py — Export PDF informe por país
 """
