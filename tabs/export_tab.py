@@ -12,9 +12,9 @@ COLORES_RIESGO = {1: "BAJO", 2: "MODERADO", 3: "ALTO", 4: "MUY ALTO", 5: "EXTREM
 class InformePDF(FPDF):
     def __init__(self):
         super().__init__()
-        self.add_font("DejaVu", "", "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")
-        self.add_font("DejaVu", "B", "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf")
-        
+        _fonts = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "fonts")
+        self.add_font("DejaVu", "", os.path.join(_fonts, "DejaVuSans.ttf"))
+        self.add_font("DejaVu", "B", os.path.join(_fonts, "DejaVuSans-Bold.ttf"))
 
     def header(self):
         self.set_font("DejaVu", "B", 14)
