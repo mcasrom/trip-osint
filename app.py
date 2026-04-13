@@ -135,6 +135,18 @@ with st.sidebar:
     nivel_r = pais.get("nivel_riesgo_maec", 1)
     colores_r = {1:"#00e676", 2:"#ffd600", 3:"#ff9100", 4:"#ff1744", 5:"#d50000"}
     color_r = colores_r.get(nivel_r, "#c8d8e8")
+    # ── Botón compartir ──────────────────────────────────────────────
+    share_url = 'https://triposint.streamlit.app/?pais=' + pais_nombre
+    st.markdown(
+        '<div style="margin-bottom:12px;text-align:center">'
+        '<a href="' + share_url + '" target="_blank" '
+        'style="display:inline-block;background:#1e2d40;color:#00d4aa;'
+        'font-family:JetBrains Mono;font-size:11px;font-weight:700;'
+        'padding:7px 14px;border-radius:20px;text-decoration:none;'
+        'border:1px solid #00d4aa;letter-spacing:0.5px">'
+        '🔗 Compartir este destino</a></div>',
+        unsafe_allow_html=True
+    )
     st.markdown(f"""
     <hr style='border-color:#1e2d40;margin:16px 0'>
     <div style='background:#0d1a2a;border:1px solid #1e2d40;border-radius:8px;padding:12px'>
@@ -161,18 +173,6 @@ with st.sidebar:
         </a>
     </div>
     """, unsafe_allow_html=True)
-    # ── Botón compartir ──────────────────────────────────────────────
-    share_url = 'https://triposint.streamlit.app/?pais=' + pais_nombre
-    st.markdown(
-        '<div style="margin-bottom:12px;text-align:center">'
-        '<a href="' + share_url + '" target="_blank" '
-        'style="display:inline-block;background:#1e2d40;color:#00d4aa;'
-        'font-family:JetBrains Mono;font-size:11px;font-weight:700;'
-        'padding:7px 14px;border-radius:20px;text-decoration:none;'
-        'border:1px solid #00d4aa;letter-spacing:0.5px">'
-        '🔗 Compartir este destino</a></div>',
-        unsafe_allow_html=True
-    )
     st.markdown("""
     <div style='font-size:10px;color:#4a6080;font-family:JetBrains Mono;
          text-align:center;margin-top:12px;line-height:1.8'>
