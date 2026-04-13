@@ -238,9 +238,10 @@ tabs = st.tabs([
     "✅ Checklists",
     "ℹ Info & Contactos",
     "🔬 Metodología & Fuentes",
+    "📄 Export PDF",
 ])
 
-tab_riesgo, tab_maec, tab_meteo, tab_divisa, tab_requisitos, tab_salud, tab_prensa, tab_checklist, tab_info, tab_metodologia = tabs
+tab_riesgo, tab_maec, tab_meteo, tab_divisa, tab_requisitos, tab_salud, tab_prensa, tab_checklist, tab_info, tab_metodologia, tab_export = tabs
 
 with tab_riesgo:
     from tabs.riesgo_global_tab import render as render_riesgo
@@ -281,6 +282,10 @@ with tab_info:
 with tab_metodologia:
     from tabs.metodologia_tab import render as render_metodologia
     render_metodologia()
+
+with tab_export:
+    from tabs.export_tab import render as render_export
+    render_export(pais, pais_nombre, motivo)
 
 # ── Footer global ─────────────────────────────────────────────────────────────
 st.markdown("""
