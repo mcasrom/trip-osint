@@ -108,6 +108,8 @@ with st.sidebar:
     <hr style='border-color:#1e2d40;margin:8px 0 16px'>
     """, unsafe_allow_html=True)
 
+    # ── Share URL: leer ?pais= de la URL ────────────────────────────────
+    _qp = st.query_params.get("pais", "")
     regiones = sorted(set(v["region"] for v in PAISES.values()))
     region_sel = st.selectbox("🌐 Región", ["Todas"] + regiones, key="region_sel")
 
@@ -116,7 +118,9 @@ with st.sidebar:
         if region_sel == "Todas" or v["region"] == region_sel
     }
 
-    pais_nombre = st.selectbox("✈ País de destino", list(paises_filtrados.keys()), key="pais_sel")
+    _lista_paises = list(paises_filtrados.keys())
+    _idx = _lista_paises.index(_qp) if _qp in _lista_paises else 0
+    pais_nombre = st.selectbox("✈ País de destino", _lista_paises, index=_idx, key="pais_sel")
     pais = paises_filtrados[pais_nombre]
 
     st.markdown("<hr style='border-color:#1e2d40;margin:16px 0'>", unsafe_allow_html=True)
@@ -151,6 +155,19 @@ with st.sidebar:
            style='display:inline-block;background:#FF5E5B;color:#fff;
            font-family:JetBrains Mono;font-size:12px;font-weight:700;
            padding:8px 16px;border-radius:20px;text-decoration:none;
+
+    # ── Botón compartir ──────────────────────────────────────────────
+    share_url = 'https://triposint.streamlit.app/?pais=' + pais_nombre
+    st.markdown(
+        '<div style="margin-bottom:12px;text-align:center">'
+        '<a href="' + share_url + '" target="_blank" '
+        'style="display:inline-block;background:#1e2d40;color:#00d4aa;'
+        'font-family:JetBrains Mono;font-size:11px;font-weight:700;'
+        'padding:7px 14px;border-radius:20px;text-decoration:none;'
+        'border:1px solid #00d4aa;letter-spacing:0.5px">'
+        '🔗 Compartir este destino</a></div>',
+        unsafe_allow_html=True
+    )
            letter-spacing:0.5px'>
             ☕ Invítame a un café
         </a>
