@@ -137,16 +137,16 @@ with st.sidebar:
     color_r = colores_r.get(nivel_r, "#c8d8e8")
     # ── Botón compartir ──────────────────────────────────────────────
     share_url = 'https://triposint.streamlit.app/?pais=' + pais_nombre
-    st.markdown(
+    _share_html = (
         '<div style="margin-bottom:12px;text-align:center">'
-        '<a href="' + share_url + '" target="_blank" '
+        f'<a href="{share_url}" target="_blank" '
         'style="display:inline-block;background:#1e2d40;color:#00d4aa;'
         'font-family:JetBrains Mono;font-size:11px;font-weight:700;'
         'padding:7px 14px;border-radius:20px;text-decoration:none;'
         'border:1px solid #00d4aa;letter-spacing:0.5px">'
-        '🔗 Compartir este destino</a></div>',
-        unsafe_allow_html=True
+        '\U0001f517 Compartir este destino</a></div>'
     )
+    st.markdown(_share_html, unsafe_allow_html=True)
     st.markdown(f"""
     <hr style='border-color:#1e2d40;margin:16px 0'>
     <div style='background:#0d1a2a;border:1px solid #1e2d40;border-radius:8px;padding:12px'>

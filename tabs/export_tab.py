@@ -9,8 +9,14 @@ from datetime import datetime
 COLORES_RIESGO = {1: "BAJO", 2: "MODERADO", 3: "ALTO", 4: "MUY ALTO", 5: "EXTREMO"}
 
 class InformePDF(FPDF):
+    def __init__(self):
+        super().__init__()
+        self.add_font("DejaVu", "", "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")
+        self.add_font("DejaVu", "B", "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf")
+        
+
     def header(self):
-        self.set_font("Helvetica", "B", 14)
+        self.set_font("DejaVu", "B", 14)
         self.set_text_color(0, 212, 170)
         self.cell(0, 10, "TRIPOSINT — Informe de Inteligencia para Viajeros", ln=True)
         self.set_draw_color(30, 45, 64)
@@ -19,12 +25,12 @@ class InformePDF(FPDF):
 
     def footer(self):
         self.set_y(-15)
-        self.set_font("Helvetica", "I", 8)
+        self.set_font("DejaVu", "", 8)
         self.set_text_color(74, 96, 128)
         self.cell(0, 10, f"TripOSINT v2.0 · mcasrom · triposint.streamlit.app · Pág. {self.page_no()}", align="C")
 
 def seccion(pdf, titulo):
-    pdf.set_font("Helvetica", "B", 10)
+    pdf.set_font("DejaVu", "B", 10)
     pdf.set_fill_color(13, 26, 42)
     pdf.set_text_color(0, 212, 170)
     pdf.cell(0, 7, titulo, ln=True, fill=True)
@@ -32,10 +38,10 @@ def seccion(pdf, titulo):
     pdf.ln(1)
 
 def fila(pdf, label, valor):
-    pdf.set_font("Helvetica", "B", 9)
+    pdf.set_font("DejaVu", "B", 9)
     pdf.set_text_color(74, 96, 128)
     pdf.cell(55, 6, label + ":", ln=False)
-    pdf.set_font("Helvetica", "", 9)
+    pdf.set_font("DejaVu", "", 9)
     pdf.set_text_color(30, 30, 30)
     pdf.multi_cell(0, 6, str(valor) if valor else "N/D")
 
@@ -45,11 +51,11 @@ def generar_pdf(pais_nombre, pais, motivo):
     pdf.set_auto_page_break(auto=True, margin=15)
 
     # Cabecera destino
-    pdf.set_font("Helvetica", "B", 18)
+    pdf.set_font("DejaVu", "B", 18)
     pdf.set_text_color(30, 30, 30)
     emoji = pais.get("emoji", "")
     pdf.cell(0, 12, f"{pais_nombre}", ln=True)
-    pdf.set_font("Helvetica", "", 10)
+    pdf.set_font("DejaVu", "", 10)
     pdf.set_text_color(74, 96, 128)
     nivel = pais.get("nivel_riesgo_maec", 1)
     pdf.cell(0, 6, f"Región: {pais.get('region','N/D')}  ·  Motivo: {motivo}  ·  Riesgo MAEC: {nivel}/5 — {COLORES_RIESGO.get(nivel,'')}", ln=True)
@@ -93,7 +99,7 @@ def generar_pdf(pais_nombre, pais, motivo):
     alertas = pais.get("alertas_maec", [])
     if alertas:
         for a in alertas:
-            pdf.set_font("Helvetica", "", 9)
+            pdf.set_font("DejaVu", "", 9)
             pdf.set_text_color(30, 30, 30)
             pdf.multi_cell(0, 6, f"• {a}")
     else:
@@ -113,7 +119,7 @@ def generar_pdf(pais_nombre, pais, motivo):
     pdf.ln(3)
 
     # Disclaimer
-    pdf.set_font("Helvetica", "I", 8)
+    pdf.set_font("DejaVu", "", 8)
     pdf.set_text_color(74, 96, 128)
     pdf.multi_cell(0, 5, "AVISO: Este informe es orientativo. Verifica siempre la información en fuentes oficiales (MAEC, OMS, embajadas) antes de viajar. TripOSINT no se responsabiliza de decisiones tomadas basándose en este documento.")
 
