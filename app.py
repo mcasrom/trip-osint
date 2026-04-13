@@ -156,6 +156,11 @@ with st.sidebar:
            font-family:JetBrains Mono;font-size:12px;font-weight:700;
            padding:8px 16px;border-radius:20px;text-decoration:none;
 
+           letter-spacing:0.5px'>
+            ☕ Invítame a un café
+        </a>
+    </div>
+    """, unsafe_allow_html=True)
     # ── Botón compartir ──────────────────────────────────────────────
     share_url = 'https://triposint.streamlit.app/?pais=' + pais_nombre
     st.markdown(
@@ -168,10 +173,7 @@ with st.sidebar:
         '🔗 Compartir este destino</a></div>',
         unsafe_allow_html=True
     )
-           letter-spacing:0.5px'>
-            ☕ Invítame a un café
-        </a>
-    </div>
+    st.markdown("""
     <div style='font-size:10px;color:#4a6080;font-family:JetBrains Mono;
          text-align:center;margin-top:12px;line-height:1.8'>
         <a href='https://github.com/mcasrom/trip-osint' target='_blank'
