@@ -42,10 +42,12 @@ def seccion(pdf, titulo):
 def fila(pdf, label, valor):
     pdf.set_font("DejaVu", "B", 9)
     pdf.set_text_color(74, 96, 128)
+    pdf.set_x(pdf.l_margin)
     pdf.cell(45, 6, label + ":", ln=False)
     pdf.set_font("DejaVu", "", 9)
     pdf.set_text_color(30, 30, 30)
-    pdf.multi_cell(pdf.w - pdf.r_margin - pdf.l_margin - 45, 6, str(valor) if valor else "N/D")
+    ancho = pdf.w - pdf.l_margin - pdf.r_margin - 45
+    pdf.multi_cell(ancho, 6, str(valor) if valor else "N/D")
 
 def generar_pdf(pais_nombre, pais, motivo):
     pdf = InformePDF()
