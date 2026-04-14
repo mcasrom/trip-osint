@@ -6,9 +6,14 @@ Autor: mcasrom
 
 import streamlit as st
 from config.paises import PAISES
+from config.i18n import t, STRINGS
 
+# lang se inicializa antes del set_page_config para título dinámico
+_lang_init = st.query_params.get("lang", "es")
+if _lang_init not in ("es", "en"):
+    _lang_init = "es"
 st.set_page_config(
-    page_title="TripOSINT — Inteligencia para viajeros",
+    page_title=t("app_title", _lang_init),
     page_icon="🌍",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -109,25 +114,40 @@ with st.sidebar:
     """, unsafe_allow_html=True)
 
     # ── Share URL: leer ?pais= de la URL ────────────────────────────────
+    # ── Selector idioma ─────────────────────────────────────────────
+    _lang_qp = st.query_params.get("lang", "es")
+    if _lang_qp not in ("es", "en"):
+        _lang_qp = "es"
+    lang = st.radio(
+        t("sidebar_lang", "es"),
+        options=["es", "en"],
+        index=0 if _lang_qp == "es" else 1,
+        horizontal=True,
+        format_func=lambda x: "🇪🇸 ES" if x == "es" else "🇬🇧 EN",
+        key="lang_sel",
+    )
+    st.query_params["lang"] = lang
+    st.markdown("<hr style='border-color:#1e2d40;margin:8px 0 16px'>", unsafe_allow_html=True)
+
     _qp = st.query_params.get("pais", "")
     regiones = sorted(set(v["region"] for v in PAISES.values()))
-    region_sel = st.selectbox("🌐 Región", ["Todas"] + regiones, key="region_sel")
+    region_sel = st.selectbox(t("sidebar_region", lang), [t("sidebar_all", lang)] + regiones, key="region_sel")
 
     paises_filtrados = {
         k: v for k, v in sorted(PAISES.items())
-        if region_sel == "Todas" or v["region"] == region_sel
+        if region_sel in (t("sidebar_all","es"), t("sidebar_all","en")) or v["region"] == region_sel
     }
 
     _lista_paises = list(paises_filtrados.keys())
     _idx = _lista_paises.index(_qp) if _qp in _lista_paises else 0
-    pais_nombre = st.selectbox("✈ País de destino", _lista_paises, index=_idx, key="pais_sel")
+    pais_nombre = st.selectbox(t("sidebar_country", lang), _lista_paises, index=_idx, key="pais_sel")
     pais = paises_filtrados[pais_nombre]
 
     st.markdown("<hr style='border-color:#1e2d40;margin:16px 0'>", unsafe_allow_html=True)
 
     motivo = st.selectbox(
-        "🎯 Motivo del viaje",
-        ["Turismo", "Trabajo / Negocios", "Familiar", "Estudios", "Sanitario"],
+        t("sidebar_motive", lang),
+        STRINGS["sidebar_motives"][lang],
         key="motivo_sel"
     )
 
@@ -136,7 +156,7 @@ with st.sidebar:
     colores_r = {1:"#00e676", 2:"#ffd600", 3:"#ff9100", 4:"#ff1744", 5:"#d50000"}
     color_r = colores_r.get(nivel_r, "#c8d8e8")
     # ── Botón compartir ──────────────────────────────────────────────
-    share_url = 'https://triposint.streamlit.app/?pais=' + pais_nombre
+    share_url = f'https://triposint.streamlit.app/?pais={pais_nombre}&lang={lang}'
     _share_html = (
         '<div style="margin-bottom:12px;text-align:center">'
         f'<a href="{share_url}" target="_blank" '
@@ -182,14 +202,25 @@ with st.sidebar:
 
 # ── Header principal ──────────────────────────────────────────────────────────
 nivel_riesgo = pais.get("nivel_riesgo_maec", 1)
-riesgo_labels = {
-    1: ("🟢", "Sin riesgo especial"),
-    2: ("🟡", "Precaución"),
-    3: ("🟠", "Alta precaución"),
-    4: ("🔴", "No recomendado"),
-    5: ("⛔", "Desaconsejado totalmente"),
-}
-emoji_r, label_r = riesgo_labels.get(nivel_riesgo, ("⚪", "Sin datos"))
+riesgo_labels = STRINGS["risk_labels"][lang]
+emoji_r, label_r = riesgo_labels.get(nivel_riesgo, ("⚪", "N/D"))
+
+# ── Meta tags SEO dinámicos ───────────────────────────────────────────────────
+_seo_title = t("seo_title", lang, pais=pais_nombre)
+_seo_desc  = t("seo_description", lang, pais=pais_nombre)
+_seo_kw    = t("seo_keywords", lang, pais=pais_nombre)
+st.markdown(f'''<head>
+<meta name="description" content="{_seo_desc}">
+<meta name="keywords" content="{_seo_kw}">
+<meta property="og:title" content="{_seo_title}">
+<meta property="og:description" content="{_seo_desc}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://triposint.streamlit.app/?pais={pais_nombre}&lang={lang}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{_seo_title}">
+<meta name="twitter:description" content="{_seo_desc}">
+<link rel="canonical" href="https://triposint.streamlit.app/?pais={pais_nombre}&lang={lang}">
+</head>''', unsafe_allow_html=True)
 
 st.markdown(f"""
 <div style='background:linear-gradient(135deg,#0d1a2a 0%,#0a1018 100%);
@@ -198,12 +229,12 @@ st.markdown(f"""
 
   <div style='font-family:JetBrains Mono;font-size:10px;color:#4a6080;
        letter-spacing:2px;text-transform:uppercase;margin-bottom:6px'>
-    ▸ INTELIGENCIA DE VIAJE · OSINT · FUENTES OFICIALES
+    { t('app_source', lang) }
   </div>
 
   <div style='font-family:JetBrains Mono;font-size:1.4rem;font-weight:700;
        color:#00d4aa;line-height:1.2;margin-bottom:8px'>
-    Viaja con inteligencia, no con suerte
+    { t('app_tagline', lang) }
     <span style='font-size:0.9rem;color:#c8d8e8;font-weight:400'>&nbsp;— {pais['emoji']} {pais_nombre}</span>
   </div>
 
@@ -225,15 +256,15 @@ st.markdown(f"""
 
 # ── Tabs con subtabs temáticos ────────────────────────────────────────────────
 tab_seg, tab_salud_ent, tab_destino, tab_intel, tab_tools = st.tabs([
-    "🛡️ Seguridad",
-    "🏥 Salud & Entrada",
-    "🌍 Destino",
-    "📡 Inteligencia",
-    "🛠️ Herramientas",
+    t("tab_security", lang),
+    t("tab_health", lang),
+    t("tab_destination", lang),
+    t("tab_intel", lang),
+    t("tab_tools", lang),
 ])
 
 with tab_seg:
-    sub_seg = st.tabs(["🌐 Riesgo Global", "🚨 Alertas MAEC"])
+    sub_seg = st.tabs([t("subtab_risk_global",lang), t("subtab_maec",lang)])
     with sub_seg[0]:
         from tabs.riesgo_global_tab import render as render_riesgo
         render_riesgo()
@@ -242,7 +273,7 @@ with tab_seg:
         render_maec(pais, pais_nombre, motivo)
 
 with tab_salud_ent:
-    sub_sal = st.tabs(["🏥 Salud & OMS", "📋 Requisitos entrada"])
+    sub_sal = st.tabs([t("subtab_health",lang), t("subtab_entry",lang)])
     with sub_sal[0]:
         from tabs.salud_tab import render as render_salud
         render_salud(pais, pais_nombre)
@@ -251,7 +282,7 @@ with tab_salud_ent:
         render_requisitos(pais, pais_nombre, motivo)
 
 with tab_destino:
-    sub_dst = st.tabs(["ℹ️ Info & Contactos", "🌤️ Meteorología", "💱 Divisa & Cambio"])
+    sub_dst = st.tabs([t("subtab_info",lang), t("subtab_meteo",lang), t("subtab_currency",lang)])
     with sub_dst[0]:
         from tabs.info_tab import render as render_info
         render_info(pais, pais_nombre)
@@ -263,7 +294,7 @@ with tab_destino:
         render_divisa(pais, pais_nombre)
 
 with tab_intel:
-    sub_int = st.tabs(["📰 Prensa local", "✅ Checklists"])
+    sub_int = st.tabs([t("subtab_press",lang), t("subtab_checklist",lang)])
     with sub_int[0]:
         from tabs.prensa_tab import render as render_prensa
         render_prensa(pais, pais_nombre)
@@ -272,7 +303,7 @@ with tab_intel:
         render_checklist(pais, pais_nombre, motivo)
 
 with tab_tools:
-    sub_tls = st.tabs(["📄 Export PDF", "🔬 Metodología & Fuentes"])
+    sub_tls = st.tabs([t("subtab_export",lang), t("subtab_methodology",lang)])
     with sub_tls[0]:
         from tabs.export_tab import render as render_export
         render_export(pais, pais_nombre, motivo)
