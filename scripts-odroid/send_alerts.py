@@ -12,7 +12,7 @@ from datetime import datetime
 
 # ── Config ────────────────────────────────────────────────────────────────────
 TELEGRAM_TOKEN   = os.environ.get("TELEGRAM_TOKEN", "")
-TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "-1003730038735")
+TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "-1003764932977")
 SNAPSHOT_FILE    = os.path.join(os.path.dirname(__file__), "../data/riesgo_snapshot.json")
 PROJ             = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
