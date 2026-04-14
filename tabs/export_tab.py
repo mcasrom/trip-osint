@@ -39,15 +39,53 @@ def seccion(pdf, titulo):
     pdf.set_text_color(50, 50, 50)
     pdf.ln(1)
 
+def _sanitizar(texto):
+    """Limpia caracteres problemáticos para fpdf2/DejaVu."""
+    if not texto:
+        return "N/D"
+    texto = str(texto)
+    # Reemplazar caracteres Unicode conflictivos por equivalentes ASCII
+    reemplazos = {
+        "—": "-", "–": "-", "‒": "-",  # guiones em/en
+        "°": " grados",                            # grado °
+        "’": "'", "‘": "'",                   # comillas curvas
+        "“": '"', "”": '"',                   # comillas dobles
+        "è": "e", "é": "e",                   # è é
+        "•": "*",                                   # bullet
+        "·": ".",                                   # middle dot
+    }
+    for orig, repl in reemplazos.items():
+        texto = texto.replace(orig, repl)
+    # Eliminar emojis y cualquier carácter fuera de latin-1
+    texto = texto.encode("latin-1", errors="replace").decode("latin-1")
+    # Quitar signos de interrogación residuales de emojis al inicio
+    texto = texto.replace("?? ", "").replace("??", "")
+    return texto.strip() or "N/D"
+
 def fila(pdf, label, valor):
-    pdf.set_font("DejaVu", "B", 9)
-    pdf.set_text_color(74, 96, 128)
-    pdf.set_x(pdf.l_margin)
-    pdf.cell(45, 6, label + ":", ln=False)
-    pdf.set_font("DejaVu", "", 9)
-    pdf.set_text_color(30, 30, 30)
-    ancho = pdf.w - pdf.l_margin - pdf.r_margin - 45
-    pdf.multi_cell(ancho, 6, str(valor) if valor else "N/D")
+    try:
+        texto = _sanitizar(valor)
+        ancho_total = pdf.w - pdf.l_margin - pdf.r_margin
+        ancho_label = 45
+        ancho_valor = ancho_total - ancho_label
+        if ancho_valor < 20:
+            ancho_valor = ancho_total
+            ancho_label = 0
+        if ancho_label > 0:
+            pdf.set_font("DejaVu", "B", 9)
+            pdf.set_text_color(74, 96, 128)
+            pdf.set_x(pdf.l_margin)
+            pdf.cell(ancho_label, 6, (label + ":")[:30], ln=False)
+        pdf.set_font("DejaVu", "", 9)
+        pdf.set_text_color(30, 30, 30)
+        pdf.multi_cell(ancho_valor, 6, texto)
+    except Exception as e:
+        try:
+            pdf.set_font("DejaVu", "", 8)
+            pdf.set_text_color(120, 120, 120)
+            pdf.cell(0, 6, f"{label}: [error campo]", ln=True)
+        except Exception:
+            pass
 
 def generar_pdf(pais_nombre, pais, motivo):
     pdf = InformePDF()
@@ -105,7 +143,8 @@ def generar_pdf(pais_nombre, pais, motivo):
         for a in alertas:
             pdf.set_font("DejaVu", "", 9)
             pdf.set_text_color(30, 30, 30)
-            pdf.multi_cell(0, 6, f"• {a}")
+            ancho_util = pdf.w - pdf.l_margin - pdf.r_margin
+            pdf.multi_cell(ancho_util, 6, f"* {_sanitizar(a)}")
     else:
         fila(pdf, "Alertas", "Sin alertas activas")
     notas_civicas = pais.get("notas_civicas", "")
@@ -125,7 +164,8 @@ def generar_pdf(pais_nombre, pais, motivo):
     # Disclaimer
     pdf.set_font("DejaVu", "", 8)
     pdf.set_text_color(74, 96, 128)
-    pdf.multi_cell(0, 5, "AVISO: Este informe es orientativo. Verifica siempre la información en fuentes oficiales (MAEC, OMS, embajadas) antes de viajar. TripOSINT no se responsabiliza de decisiones tomadas basándose en este documento.")
+    ancho_util = pdf.w - pdf.l_margin - pdf.r_margin
+    pdf.multi_cell(ancho_util, 5, "AVISO: Este informe es orientativo. Verifica siempre la informacion en fuentes oficiales (MAEC, OMS, embajadas) antes de viajar. TripOSINT no se responsabiliza de decisiones tomadas basandose en este documento.")
 
     buf = io.BytesIO()
     pdf.output(buf)
