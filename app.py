@@ -223,66 +223,62 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-# ── Tabs ──────────────────────────────────────────────────────────────────────
-tabs = st.tabs([
-    "🌐 Riesgo Global",
-    "🚨 Alertas MAEC",
-    "🌤️ Meteorología",
-    "💱 Divisa & Cambio",
-    "📋 Requisitos entrada",
-    "🏥 Salud & OMS",
-    "📰 Prensa local",
-    "✅ Checklists",
-    "ℹ Info & Contactos",
-    "🔬 Metodología & Fuentes",
-    "📄 Export PDF",
+# ── Tabs con subtabs temáticos ────────────────────────────────────────────────
+tab_seg, tab_salud_ent, tab_destino, tab_intel, tab_tools = st.tabs([
+    "🛡️ Seguridad",
+    "🏥 Salud & Entrada",
+    "🌍 Destino",
+    "📡 Inteligencia",
+    "🛠️ Herramientas",
 ])
 
-tab_riesgo, tab_maec, tab_meteo, tab_divisa, tab_requisitos, tab_salud, tab_prensa, tab_checklist, tab_info, tab_metodologia, tab_export = tabs
+with tab_seg:
+    sub_seg = st.tabs(["🌐 Riesgo Global", "🚨 Alertas MAEC"])
+    with sub_seg[0]:
+        from tabs.riesgo_global_tab import render as render_riesgo
+        render_riesgo()
+    with sub_seg[1]:
+        from tabs.maec_tab import render as render_maec
+        render_maec(pais, pais_nombre, motivo)
 
-with tab_riesgo:
-    from tabs.riesgo_global_tab import render as render_riesgo
-    render_riesgo()
+with tab_salud_ent:
+    sub_sal = st.tabs(["🏥 Salud & OMS", "📋 Requisitos entrada"])
+    with sub_sal[0]:
+        from tabs.salud_tab import render as render_salud
+        render_salud(pais, pais_nombre)
+    with sub_sal[1]:
+        from tabs.requisitos_tab import render as render_requisitos
+        render_requisitos(pais, pais_nombre, motivo)
 
-with tab_maec:
-    from tabs.maec_tab import render as render_maec
-    render_maec(pais, pais_nombre, motivo)
+with tab_destino:
+    sub_dst = st.tabs(["ℹ️ Info & Contactos", "🌤️ Meteorología", "💱 Divisa & Cambio"])
+    with sub_dst[0]:
+        from tabs.info_tab import render as render_info
+        render_info(pais, pais_nombre)
+    with sub_dst[1]:
+        from tabs.meteo_tab import render as render_meteo
+        render_meteo(pais, pais_nombre)
+    with sub_dst[2]:
+        from tabs.divisa_tab import render as render_divisa
+        render_divisa(pais, pais_nombre)
 
-with tab_meteo:
-    from tabs.meteo_tab import render as render_meteo
-    render_meteo(pais, pais_nombre)
+with tab_intel:
+    sub_int = st.tabs(["📰 Prensa local", "✅ Checklists"])
+    with sub_int[0]:
+        from tabs.prensa_tab import render as render_prensa
+        render_prensa(pais, pais_nombre)
+    with sub_int[1]:
+        from tabs.checklist_tab import render as render_checklist
+        render_checklist(pais, pais_nombre, motivo)
 
-with tab_divisa:
-    from tabs.divisa_tab import render as render_divisa
-    render_divisa(pais, pais_nombre)
-
-with tab_requisitos:
-    from tabs.requisitos_tab import render as render_requisitos
-    render_requisitos(pais, pais_nombre, motivo)
-
-with tab_salud:
-    from tabs.salud_tab import render as render_salud
-    render_salud(pais, pais_nombre)
-
-with tab_prensa:
-    from tabs.prensa_tab import render as render_prensa
-    render_prensa(pais, pais_nombre)
-
-with tab_checklist:
-    from tabs.checklist_tab import render as render_checklist
-    render_checklist(pais, pais_nombre, motivo)
-
-with tab_info:
-    from tabs.info_tab import render as render_info
-    render_info(pais, pais_nombre)
-
-with tab_metodologia:
-    from tabs.metodologia_tab import render as render_metodologia
-    render_metodologia()
-
-with tab_export:
-    from tabs.export_tab import render as render_export
-    render_export(pais, pais_nombre, motivo)
+with tab_tools:
+    sub_tls = st.tabs(["📄 Export PDF", "🔬 Metodología & Fuentes"])
+    with sub_tls[0]:
+        from tabs.export_tab import render as render_export
+        render_export(pais, pais_nombre, motivo)
+    with sub_tls[1]:
+        from tabs.metodologia_tab import render as render_metodologia
+        render_metodologia()
 
 # ── Footer global ─────────────────────────────────────────────────────────────
 st.markdown("""
