@@ -144,6 +144,7 @@ def generar_pdf(pais_nombre, pais, motivo):
             pdf.set_font("DejaVu", "", 9)
             pdf.set_text_color(30, 30, 30)
             ancho_util = pdf.w - pdf.l_margin - pdf.r_margin
+            pdf.set_x(pdf.l_margin)
             pdf.multi_cell(ancho_util, 6, f"* {_sanitizar(a)}")
     else:
         fila(pdf, "Alertas", "Sin alertas activas")
