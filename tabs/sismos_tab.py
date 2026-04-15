@@ -192,7 +192,7 @@ def render(pais, pais_nombre, lang="es"):
     st.markdown(f"### {t('title')}")
 
     # Obtener timezone del país
-    _, iana_tz = _bbox(pais_nombre)
+    local_tz, iana_tz = _get_tz(pais_nombre)
     try:
         local_tz = ZoneInfo(iana_tz)
     except Exception:
