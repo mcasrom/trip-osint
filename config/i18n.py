@@ -124,6 +124,10 @@ STRINGS = {
         "es": "🌤️ Meteorología",
         "en": "🌤️ Weather",
     },
+    "subtab_numbeo": {
+        "es": "💰 Coste de vida",
+        "en": "💰 Cost of Living",
+    },
     "subtab_currency": {
         "es": "💱 Divisa & Cambio",
         "en": "💱 Currency & Exchange",

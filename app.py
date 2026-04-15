@@ -342,7 +342,8 @@ with tab_salud_ent:
         render_requisitos(pais, pais_nombre, motivo)
 
 with tab_destino:
-    sub_dst = st.tabs([t("subtab_info",lang), t("subtab_meteo",lang), t("subtab_currency",lang)])
+    sub_dst = st.tabs([t("subtab_info",lang), t("subtab_meteo",lang),
+                       t("subtab_currency",lang), t("subtab_numbeo",lang)])
     with sub_dst[0]:
         from tabs.info_tab import render as render_info
         render_info(pais, pais_nombre)
@@ -352,6 +353,9 @@ with tab_destino:
     with sub_dst[2]:
         from tabs.divisa_tab import render as render_divisa
         render_divisa(pais, pais_nombre)
+    with sub_dst[3]:
+        from tabs.numbeo_tab import render as render_numbeo
+        render_numbeo(pais, pais_nombre, lang=lang)
 
 with tab_intel:
     sub_int = st.tabs([t("subtab_press",lang), t("subtab_checklist",lang),
