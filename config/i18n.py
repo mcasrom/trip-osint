@@ -136,6 +136,14 @@ STRINGS = {
         "es": "✅ Checklists",
         "en": "✅ Checklists",
     },
+    "subtab_sismos": {
+        "es": "🌋 Sismos",
+        "en": "🌋 Earthquakes",
+    },
+    "subtab_gdacs": {
+        "es": "🚨 Desastres",
+        "en": "🚨 Disasters",
+    },
     "subtab_export": {
         "es": "📄 Export PDF",
         "en": "📄 Export PDF",

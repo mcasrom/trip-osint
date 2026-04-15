@@ -294,13 +294,20 @@ with tab_destino:
         render_divisa(pais, pais_nombre)
 
 with tab_intel:
-    sub_int = st.tabs([t("subtab_press",lang), t("subtab_checklist",lang)])
+    sub_int = st.tabs([t("subtab_press",lang), t("subtab_checklist",lang),
+                       t("subtab_sismos",lang), t("subtab_gdacs",lang)])
     with sub_int[0]:
         from tabs.prensa_tab import render as render_prensa
         render_prensa(pais, pais_nombre)
     with sub_int[1]:
         from tabs.checklist_tab import render as render_checklist
         render_checklist(pais, pais_nombre, motivo)
+    with sub_int[2]:
+        from tabs.sismos_tab import render as render_sismos
+        render_sismos(pais, pais_nombre, lang=lang)
+    with sub_int[3]:
+        from tabs.gdacs_tab import render as render_gdacs
+        render_gdacs(pais, pais_nombre, lang=lang)
 
 with tab_tools:
     sub_tls = st.tabs([t("subtab_export",lang), t("subtab_methodology",lang)])
