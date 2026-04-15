@@ -210,17 +210,77 @@ _seo_title = t("seo_title", lang, pais=pais_nombre)
 _seo_desc  = t("seo_description", lang, pais=pais_nombre)
 _seo_kw    = t("seo_keywords", lang, pais=pais_nombre)
 st.markdown(f'''<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
 <meta name="description" content="{_seo_desc}">
 <meta name="keywords" content="{_seo_kw}">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="TripOSINT">
+<meta name="theme-color" content="#0a1628">
 <meta property="og:title" content="{_seo_title}">
 <meta property="og:description" content="{_seo_desc}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://triposint.streamlit.app/?pais={pais_nombre}&lang={lang}">
+<meta property="og:image" content="https://triposint.streamlit.app/assets/og_image.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="{_seo_title}">
 <meta name="twitter:description" content="{_seo_desc}">
 <link rel="canonical" href="https://triposint.streamlit.app/?pais={pais_nombre}&lang={lang}">
+<link rel="manifest" href="/assets/manifest.json">
 </head>''', unsafe_allow_html=True)
+
+st.markdown("""<style>
+/* ── Mobile responsive ───────────────────────────────────────────── */
+@media (max-width: 768px) {
+    /* Sidebar colapsada por defecto en móvil */
+    [data-testid="stSidebar"] {
+        min-width: 85vw !important;
+        max-width: 85vw !important;
+    }
+    /* Métricas en grid 2 columnas */
+    [data-testid="stHorizontalBlock"] {
+        flex-wrap: wrap !important;
+    }
+    [data-testid="stHorizontalBlock"] > div {
+        min-width: 45% !important;
+        flex: 1 1 45% !important;
+    }
+    /* Tabs scroll horizontal */
+    [data-testid="stTabs"] > div:first-child {
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    /* Cards full width */
+    div[style*="border-left"] {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        font-size: 11px !important;
+    }
+    /* Sliders más grandes para touch */
+    [data-testid="stSlider"] {
+        padding: 8px 0 !important;
+    }
+    /* Texto más legible */
+    .stMarkdown p { font-size: 13px !important; line-height: 1.6 !important; }
+}
+@media (max-width: 480px) {
+    /* Columnas apiladas en pantallas muy pequeñas */
+    [data-testid="stHorizontalBlock"] > div {
+        min-width: 100% !important;
+        flex: 1 1 100% !important;
+    }
+    /* Métricas compactas */
+    [data-testid="stMetric"] {
+        padding: 6px 8px !important;
+    }
+    [data-testid="stMetricValue"] {
+        font-size: 18px !important;
+    }
+}
+</style>""", unsafe_allow_html=True)
 
 st.markdown(f"""
 <div style='background:linear-gradient(135deg,#0d1a2a 0%,#0a1018 100%);
