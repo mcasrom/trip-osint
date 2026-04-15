@@ -9,6 +9,81 @@ try:
 except ImportError:
     from backports.zoneinfo import ZoneInfo
 
+COUNTRY_TZ = {
+    "Alemania":               "Europe/Berlin",
+    "Francia":                "Europe/Paris",
+    "Italia":                 "Europe/Rome",
+    "Reino Unido":            "Europe/London",
+    "Turquía":                "Europe/Istanbul",
+    "Portugal":               "Europe/Lisbon",
+    "Grecia":                 "Europe/Athens",
+    "México":                 "America/Mexico_City",
+    "Colombia":               "America/Bogota",
+    "Argentina":              "America/Argentina/Buenos_Aires",
+    "Estados Unidos":         "America/New_York",
+    "Japón":                  "Asia/Tokyo",
+    "India":                  "Asia/Kolkata",
+    "Tailandia":              "Asia/Bangkok",
+    "China":                  "Asia/Shanghai",
+    "Marruecos":              "Africa/Casablanca",
+    "Egipto":                 "Africa/Cairo",
+    "Australia":              "Australia/Sydney",
+    "Austria":                "Europe/Vienna",
+    "Bélgica":                "Europe/Brussels",
+    "Países Bajos":           "Europe/Amsterdam",
+    "Suiza":                  "Europe/Zurich",
+    "Polonia":                "Europe/Warsaw",
+    "República Checa":        "Europe/Prague",
+    "Suecia":                 "Europe/Stockholm",
+    "Noruega":                "Europe/Oslo",
+    "Dinamarca":              "Europe/Copenhagen",
+    "Irlanda":                "Europe/Dublin",
+    "Croacia":                "Europe/Zagreb",
+    "Hungría":                "Europe/Budapest",
+    "Rumanía":                "Europe/Bucharest",
+    "Georgia":                "Asia/Tbilisi",
+    "Ucrania":                "Europe/Kiev",
+    "Emiratos Árabes Unidos": "Asia/Dubai",
+    "Arabia Saudí":           "Asia/Riyadh",
+    "Israel":                 "Asia/Jerusalem",
+    "Jordania":               "Asia/Amman",
+    "Corea del Sur":          "Asia/Seoul",
+    "Singapur":               "Asia/Singapore",
+    "Vietnam":                "Asia/Ho_Chi_Minh",
+    "Indonesia":              "Asia/Jakarta",
+    "Malasia":                "Asia/Kuala_Lumpur",
+    "Nepal":                  "Asia/Kathmandu",
+    "Kenia":                  "Africa/Nairobi",
+    "Tanzania":               "Africa/Dar_es_Salaam",
+    "Sudáfrica":              "Africa/Johannesburg",
+    "Ghana":                  "Africa/Accra",
+    "Canadá":                 "America/Toronto",
+    "Brasil":                 "America/Sao_Paulo",
+    "Chile":                  "America/Santiago",
+    "Perú":                   "America/Lima",
+    "Cuba":                   "America/Havana",
+    "Rep. Dominicana":        "America/Santo_Domingo",
+    "Ecuador":                "America/Guayaquil",
+    "Nueva Zelanda":          "Pacific/Auckland",
+    "Rusia":                  "Europe/Moscow",
+    "Filipinas":              "Asia/Manila",
+    "Irán":                   "Asia/Tehran",
+    "Pakistán":               "Asia/Karachi",
+    "Afganistán":             "Asia/Kabul",
+    "Argelia":                "Africa/Algiers",
+    "Bolivia":                "America/La_Paz",
+    "Venezuela":              "America/Caracas",
+    "Costa Rica":             "America/Costa_Rica",
+    "Guatemala":              "America/Guatemala",
+}
+
+def _get_tz(pais_nombre):
+    iana = COUNTRY_TZ.get(pais_nombre, "UTC")
+    try:
+        return ZoneInfo(iana), iana
+    except Exception:
+        return __import__("datetime").timezone.utc, "UTC"
+
 def _bbox(pais):
     """
     Bounding box aproximado por país [minlat, maxlat, minlon, maxlon]
